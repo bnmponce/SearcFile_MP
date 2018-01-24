@@ -1,10 +1,13 @@
 class ValidateInput(object):
+
     """
     ValidateInput class and methods
     This class contains methods which are helpful to validation of the inputs
     to search_files project.
     """
+
     def validate_file_name(self, validate_name):
+
         """
         Validate_file_name method is development to validate the name of any file.
 
@@ -13,6 +16,7 @@ class ValidateInput(object):
         :return: This method returns a boolean. True will be return if the name is a valid name for a file,
         if not it should be returned false
         """
+
         self.validate_name = str(validate_name)
         validate_name.strip(' ')
 
@@ -25,12 +29,14 @@ class ValidateInput(object):
             return False
 
     def check_no_allowed_characters(self, file_name):
+
         """
         check_no_allowed_characters method is implemented to verify that some specific
         characters are into the string that is sent to this method.
         :param file_name: It is a string to verifi it is contains some specific characters
         :return: boolean, True should be returned when at least one of specific characters are in the string.
         """
+        
         no_allowed_characters = ':/\?*|<>'
         response = False
         counter = 0
