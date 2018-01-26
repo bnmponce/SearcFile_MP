@@ -112,7 +112,3 @@ class ValidateInput(object):
         else:
             return False
 
-
-
-validate = ValidateInput()
-print(validate.is_number(0.7855))
