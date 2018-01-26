@@ -1,4 +1,5 @@
 import sys, os
+from file import *
 
 class SeachFiles:
     """
@@ -61,10 +62,29 @@ class SeachFiles:
         :return: all the results
         """
         self.name = name
-        results = self.search_by_name(name)
+        results = self.all_results(name)
         for files in results:
             print(files)
 
+    def all_results(self, name):
+        self.name = name
+        file_object = File()
+        results = []
+        path = os.getcwd()
+        for root, folders, files in os.walk(path):
+            for file in files:
+                if name in file.lower():
+                    file_and_path = os.path.join(root, file)
+                    file_object.set_path(file_and_path)
+                    results.append(file_object.get_path())
+
+            for folder in folders:
+                if name in folder.lower():
+                    folder_and_path = os.path.join(root, folder)
+                    file_object.set_path(folder_and_path)
+                    results.append(file_object.get_path())
+        return results
+
 
 files = SeachFiles()
-files.list_results("test")
+print(files.list_results('test'))
