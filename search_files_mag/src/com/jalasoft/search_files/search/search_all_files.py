@@ -85,6 +85,35 @@ class SeachFiles:
                     results.append(file_object.get_path())
         return results
 
+    def all_results_before(self, name, type_search):
+        self.name = name
+
+        results = []
+        path = os.getcwd()
+        for root, folders, files in os.walk(path):
+            if type_search == 1 or type_search == 3:
+                for file in files:
+                    if name in file.lower():
+                        file_object = File()
+                        file_and_path = os.path.join(root, file)
+                        file_object.set_path(file_and_path)
+                        file_object.set_size(os.path.getsize(file_and_path))
+                        results.append(file_object)
+
+            if type_search == 2 or type_search == 3:
+                for folder in folders:
+                    if name in folder.lower():
+                        file_object = File()
+                        folder_and_path = os.path.join(root, folder)
+                        file_object.set_path(folder_and_path)
+                        file_object.set_size(os.path.getsize(folder_and_path))
+                        results.append(file_object)
+        return results
+
 
 files = SeachFiles()
-print(files.list_results('test'))
+# print(files.all_results_before('test'))
+results = files.all_results_before('test',2)
+for i in results:
+    print(i.get_path())
+    print(i.get_size())

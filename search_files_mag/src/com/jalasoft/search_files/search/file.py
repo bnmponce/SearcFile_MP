@@ -5,3 +5,9 @@ class File:
 
     def get_path(self):
         return self.path
+
+    def set_size(self, size):
+        self.size = size
+
+    def get_size(self):
+        return self.size
