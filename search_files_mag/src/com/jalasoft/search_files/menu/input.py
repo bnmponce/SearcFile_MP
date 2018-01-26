@@ -8,7 +8,8 @@ class Menu:
     # method to read the settings.ini file
     def read_settings(self):
         config = configparser.ConfigParser()
-        config.read('E:\\2018\\DevFundamentals2\\SearchFileProject\\search_files_mag\\config\\settings.ini')
+        #config.read('E:\\2018\\DevFundamentals2\\SearchFileProject\\search_files_mag\\config\\settings.ini')
+        config.read('C:\\Users\\Administrator\\Documents\\SearchFileProject\\search_files_mag\\config\\settings.ini')
         # print(config['CONFIG']['name'])
         return config
 
@@ -42,7 +43,9 @@ class Menu:
     def set_name(self, name):
         config = self.read_settings()
         config['CONFIG']['name'] = name
-        with open('E:\\2018\\DevFundamentals2\\SearchFileProject\\search_files_mag\\config\\settings.ini', 'w') as configfile:
+        #with open('E:\\2018\\DevFundamentals2\\SearchFileProject\\search_files_mag\\config\\settings.ini', 'w') as configfile:
+        #    config.write(configfile)
+        with open('C:\\Users\\Administrator\\Documents\\SearchFileProject\\search_files_mag\\config\\settings.ini', 'w') as configfile:
             config.write(configfile)
         self.get_name()
         # set_name()
@@ -52,8 +55,9 @@ class Menu:
     def set_path(self, path):
         config = self.read_settings()
         config['CONFIG']['path'] = path
-        with open('E:\\2018\\DevFundamentals2\\SearchFileProject\\search_files_mag\\config\\settings.ini',
-                  'w') as configfile:
+        #with open('E:\\2018\\DevFundamentals2\\SearchFileProject\\search_files_mag\\config\\settings.ini',
+        #          'w') as configfile:
+        with open('C:\\Users\\Administrator\\Documents\\SearchFileProject\\search_files_mag\\config\\settings.ini', 'w') as configfile:
             config.write(configfile)
         self.get_path()
         # set_name()
@@ -61,8 +65,9 @@ class Menu:
     def set_type_search(self, type_search):
         config = self.read_settings()
         config['CONFIG']['type_search'] = type_search
-        with open('E:\\2018\\DevFundamentals2\\SearchFileProject\\search_files_mag\\config\\settings.ini',
-                  'w') as configfile:
+        #with open('E:\\2018\\DevFundamentals2\\SearchFileProject\\search_files_mag\\config\\settings.ini',
+        #          'w') as configfile:
+        with open('C:\\Users\\Administrator\\Documents\\SearchFileProject\\search_files_mag\\config\\settings.ini', 'w') as configfile:
             config.write(configfile)
         self.get_type_search()
         # set_name()
