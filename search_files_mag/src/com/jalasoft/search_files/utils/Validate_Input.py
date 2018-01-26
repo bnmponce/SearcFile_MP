@@ -18,25 +18,25 @@ class ValidateInput(object):
         """
 
         self.name = str(name)
-        name.strip()
+        result = True
 
         if (len(name) > 0) and (len(name) <= 240):
             if self.has_wilcards(name) == False:
                 if self.is_sent_name_only_with_spaces(name) == False:
                     if self.is_name_begins_with_space(name) == False:
                         if self.is_name_ends_with_space(name) == False:
-                            return True
+                            result = True
                         else:
-                            return False
+                            result = False
                     else:
-                        return False
+                        result = False
                 else:
-                    return False
+                    result = False
             else:
-                return False
-
+                result = False
         else:
-            return False
+            result = False
+        return result
 
     def has_wilcards(self, name):
 
@@ -47,13 +47,13 @@ class ValidateInput(object):
         :return: boolean, True should be returned when at least one of specific characters are in the string.
         """
         no_allowed_characters = ':/\?*|<>'
-        response = False
+        result = False
         counter = 0
         while counter < len(no_allowed_characters):
             if no_allowed_characters[counter] in name:
-                response = True
+                result = True
             counter = counter + 1
-        return response
+        return result
 
     def is_sent_name_only_with_spaces(self, name):
         """
@@ -61,13 +61,13 @@ class ValidateInput(object):
         :param name: It is a string to verify it contains only spaces
         :return: this attribute returns True if the string sent is only spaces the otherwise it will return false
         """
-        response = True
+        result = True
         counter = 0
         while counter < len(name):
             if name[counter] != ' ':
-                response = False
+                result = False
             counter = counter + 1
-        return response
+        return result
 
     def is_name_begins_with_space(self, name):
         """
@@ -93,10 +93,26 @@ class ValidateInput(object):
             return False
 
     def is_valid_path(self, path):
-        
+        """
+        This method is helpful to validate the path
+        :param path: it is a string
+        :return: it returns Tru when the path is a valid path otherwise it returns false
+        """
         path = path
         return os.path.isdir(path)
 
+    def is_number(self, value):
+        """
+        This method verify that the value sent is o not a number
+        :param value: It can be a int or string
+        :return: It returns True when the value is int, float, complex number otherwise it returns False
+        """
+        if type(value) in (int, float, complex):
+            return True
+        else:
+            return False
+
+
 
 validate = ValidateInput()
-print(validate.is_valid_name('Payroll'))
+print(validate.is_number(0.7855))
