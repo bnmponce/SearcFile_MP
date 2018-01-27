@@ -5,91 +5,17 @@ class SeachFiles:
     """
     This class should contain all methods for search files
     """
-    def search_files(self, file_name):
+    def file_all_results(self, path, name, type_search):
         """
-        This method search all files that contains the name sent as parameter
-        :param file_name:
-        :return: LIST of all the files that matches with the name sent
-        """
-        self.file_name = file_name
-        path = os.getcwd()
-        for root, folders, files in os.walk(path):
-            all_files = []
-            for file in files:
-                if file_name in file.lower():
-                    all_files.append(os.path.join(root, file))
-            return all_files
-
-    def search_folders(self, folder_name):
-        """
-        This method search all folders that contains the name sent as parameter
-        :param folder_name:
-        :return: LIST of all the folders that matches with the name sent
-        """
-        self.folder_name = folder_name
-        path = os.getcwd()
-        for root, folders, files in os.walk(path):
-            all_folders = []
-            for folder in folders:
-                if folder_name in folder.lower():
-                    all_folders.append(os.path.join(root, folder))
-            return all_folders
-
-    def search_by_name(self, name):
-        """
-        This method search by name all the files and folders that matches with the name sent as parameter
-        :param name: file or folder name
-        :return: list of files and folder with that matches with the name entered
+        This method set all the values needed to handle files
+        :param name: file/folder name
+        :param type_search: This method receive a type_search if the type is
+        1 it search just files, 2 it search just folders and 3 for both files and folders
+        :return:
         """
         self.name = name
-        path = os.getcwd()
-        for root, folders, files in os.walk(path):
-            result = []
-            for file in files:
-                if name in file.lower():
-                    result.append(os.path.join(root, file))
-
-            for folder in folders:
-                if name in folder.lower():
-                    result.append(os.path.join(root, folder))
-
-            return result
-
-    def list_results(self, name):
-        """
-        List all results that were returned with the search_by_name method
-        :param name: file or folder name
-        :return: all the results
-        """
-        self.name = name
-        results = self.all_results(name)
-        for files in results:
-            print(files)
-
-    def all_results(self, name):
-        self.name = name
-        file_object = File()
         results = []
-        path = os.getcwd()
-        for root, folders, files in os.walk(path):
-            for file in files:
-                if name in file.lower():
-                    file_and_path = os.path.join(root, file)
-                    file_object.set_path(file_and_path)
-                    results.append(file_object.get_path())
-
-            for folder in folders:
-                if name in folder.lower():
-                    folder_and_path = os.path.join(root, folder)
-                    file_object.set_path(folder_and_path)
-                    results.append(file_object.get_path())
-        return results
-
-    def all_results_before(self, name, type_search):
-        self.name = name
-
-        results = []
-        path = os.getcwd()
+        self.path = path
         for root, folders, files in os.walk(path):
             if type_search == 1 or type_search == 3:
                 for file in files:
@@ -98,6 +24,8 @@ class SeachFiles:
                         file_and_path = os.path.join(root, file)
                         file_object.set_path(file_and_path)
                         file_object.set_size(os.path.getsize(file_and_path))
+                        file_object.set_is_file(True)
+                        file_object.set_extension(self.extract_extension(file_and_path))
                         results.append(file_object)
 
             if type_search == 2 or type_search == 3:
@@ -106,14 +34,31 @@ class SeachFiles:
                         file_object = File()
                         folder_and_path = os.path.join(root, folder)
                         file_object.set_path(folder_and_path)
-                        file_object.set_size(os.path.getsize(folder_and_path))
+                        file_object.set_size(self.calculate_folder_size(folder_and_path))
+                        file_object.set_is_file(False)
+                        file_object.set_extension(None)
                         results.append(file_object)
         return results
 
+    def calculate_folder_size(self, path):
+        folder_size = 0
+        for root, folders, files in os.walk(path):
+            for file in files:
+                folder_size = folder_size + os.path.getsize(os.path.join(root, file))
+        return folder_size
+
+    def extract_extension(self, path):
+        path_splitted = os.path.splitext(path)
+        extension = path_splitted[1]
+        return extension
+
+
+
 
 files = SeachFiles()
-# print(files.all_results_before('test'))
-results = files.all_results_before('test',2)
-for i in results:
+result1 = files.file_all_results('D:\\', 'test', 3)
+for i in result1:
     print(i.get_path())
     print(i.get_size())
+    print(i.get_is_file())
+    print(i.get_extension())
