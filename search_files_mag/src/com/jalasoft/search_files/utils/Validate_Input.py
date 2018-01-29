@@ -112,3 +112,70 @@ class ValidateInput(object):
         else:
             return False
 
+    def is_valid_size(self, value):
+        """
+        This method is to verify if the size is a valid size
+        :param value: it is a number
+        :return: It should be return true if the the value is a positive number
+        """
+        result= False
+        if self.is_number(value):
+            if value >= 0:
+                result = True
+        return result
+
+    def is_size_greater_than(self, file_size, value_to_compare):
+        """
+        this methos is to compare two number
+        :param file_size: It is a number
+        :param value_to_compare: Number
+        :return: It should be retrun true if the frist values is greater than second value
+        """
+        result = False
+        if file_size > value_to_compare:
+            result = True
+        return result
+
+    def is_size_less_than(self, file_size, value_to_compare):
+        """
+        this methos is to compare two number and verify if the fisrt number is less tha second number
+        :param file_size: Number
+        :param value_to_compare:Number
+        :return: It retuns true if the fisrt number is less than second number in otherwise it return false
+        """
+        result = False
+        if file_size < value_to_compare:
+            result = True
+        return result
+
+    def is_size_equals_than(self, file_size, value_to_compare):
+        """
+        this method retruns two number  to verify that both are equals
+        :param file_size: Number
+        :param value_to_compare:Number
+        :return: It returns true if both number are equals
+        """
+        result = False
+        if file_size == value_to_compare:
+            result = True
+        return result
+
+    def is_valid_extention(self, path):
+        """
+        This method is created to verify that the extexntion of a file is a valid extension
+        :param path: The path of the file is sent as a string
+        :return: it return true if the extension of the file is in the list of the extensions that are set in the method
+        """
+        file = os.path.splitext(path)
+        extension = file[1]
+        valid_extension = ['.py', '.txt', 'jpg', '.png']
+        if extension in valid_extension:
+            return True
+        else:
+            return False
+
+
+
+
+
+
