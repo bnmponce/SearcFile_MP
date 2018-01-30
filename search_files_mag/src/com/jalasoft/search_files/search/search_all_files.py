@@ -1,7 +1,8 @@
 import sys, os
-from file import *
+from src.com.jalasoft.search_files.search.file import File
 
-class SeachFiles:
+
+class SearchFiles:
     """
     This class should contain all methods for search files
     """
@@ -52,13 +53,7 @@ class SeachFiles:
         extension = path_splitted[1]
         return extension
 
-
-
-
-files = SeachFiles()
-result1 = files.file_all_results('D:\\', 'test', 3)
-for i in result1:
-    print(i.get_path())
-    print(i.get_size())
-    print(i.get_is_file())
-    print(i.get_extension())
+# search = SearchFiles()
+# result = search.file_all_results('D:\\', 'test', 3)
+# for i in result:
+#     print(i.get_path())
