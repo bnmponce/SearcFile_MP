@@ -17,8 +17,7 @@ class ValidateInput(object):
         if not it should be returned false
         """
 
-        self.name = str(name)
-        result = True
+        result = False
 
         if (len(name) > 0) and (len(name) <= 240):
             if self.has_wilcards(name) == False:
