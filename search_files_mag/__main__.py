@@ -1,5 +1,6 @@
 from src.com.jalasoft.search_files.menu.input import *
 from src.com.jalasoft.search_files.search.search_all_files import *
+from src.com.jalasoft.search_files.utils.Validate_Input import *
 
 menu = Menu()
 
@@ -33,30 +34,31 @@ parser.add_argument(
 )
 
 args = parser.parse_args()
+valid_name = ValidateInput()
 
 if args.search:
     # print("call name validator")
     print(args.name)
     if args.name:
-        validator = True #Add method to validate name
+        validator = valid_name.is_valid_name(args.name) #Add method to validate name
         if validator:
             menu.set_name(args.name)
         else:
-            print("validation error message")
+            print("Please, enter a valid name, the following characters are not valid: :/\?*|<> ")
             exit()
     if args.path:
-        validator = True #Add method to validate path
+        validator = valid_name.is_valid_path(args.path) #Add method to validate path
         if validator:
             menu.set_path(args.path)
         else:
-            print("validation error message")
+            print("The path you enter does not exist. Please enter a valid path")
             exit()
     if args.type:
         validator = True #Add method to validate file type
         if validator:
             menu.set_type_search(args.type)
         else:
-            print("validation error message type")
+            print("Please, enter a valid type: 1=file, 2=folder, 3=both")
             exit()
     # Add method to search
     print("Searching.....")
