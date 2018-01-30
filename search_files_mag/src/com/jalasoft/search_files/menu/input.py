@@ -7,6 +7,9 @@ class Menu:
     def read_settings(self):
         config = configparser.ConfigParser()
         config.read(self.config_file)
+    # def __init__(self):
+    #     print("nu")
+    # method to read the settings.ini file
         return config
 
     # method to get the name from settings.ini file
@@ -32,7 +35,7 @@ class Menu:
         config = self.read_settings()
         type_search = config['CONFIG']['type_search']
         return type_search
-        # get_path()
+        
 
     # method to overwrite name on settings.ini file
     def set_name(self, name):
@@ -60,4 +63,3 @@ class Menu:
             config.write(configfile)
         self.get_type_search()
         # set_name()
-
