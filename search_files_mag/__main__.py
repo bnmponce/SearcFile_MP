@@ -1,40 +1,11 @@
-from src.com.jalasoft.search_files.menu.input import *
+from src.com.jalasoft.search_files.menu.menu_options import *
 from src.com.jalasoft.search_files.search.search_all_files import *
 from src.com.jalasoft.search_files.utils.Validate_Input import *
 
 menu = Menu()
-
-parser = argparse.ArgumentParser(
-        description='DEV FUNDAMENTALS II - SEARCH FILES AND FOLDERS.',
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
-    )
-parser.add_argument(
-    '-s',
-    dest='search',
-    action='store_true',
-    help='perform search with criteria given.',
-)
-parser.add_argument(
-    '--name',
-    '-n',
-    default=menu.get_name(),
-    help='Configure the name of the file or folder to search.',
-)
-parser.add_argument(
-    '--path',
-    '-p',
-    default=menu.get_path(),
-    help='Configure the path in order to search a file or folder.',
-)
-parser.add_argument(
-    '--type',
-    '-t',
-    default=menu.get_type_search(),
-    help='Configure the type of search file or folder to search.',
-)
-
-args = parser.parse_args()
 valid_name = ValidateInput()
+print_menu = PrintMenu()
+args = print_menu.print_menu()
 
 if args.search:
     # print("call name validator")
