@@ -16,8 +16,6 @@ class ValidateInput(object):
         :return: This method returns a boolean. True will be return if the name is a valid name for a file,
         if not it should be returned false
         """
-
-        #self.name = str(name)
         result = False
 
         if (len(name) > 0) and (len(name) <= 240):
