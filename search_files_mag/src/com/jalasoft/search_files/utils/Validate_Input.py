@@ -99,6 +99,17 @@ class ValidateInput(object):
         path = path
         return os.path.isdir(path)
 
+    def is_valid_type(self, value):
+        """
+        This method is to validate the type field
+        :param value: Int
+        :return: This methos return tru if value is in (1, 2, 3) in otherwise is false
+        """
+        if value in (1, 2, 3):
+            return True
+        else:
+            return False
+
     def is_number(self, value):
         """
         This method verify that the value sent is o not a number
@@ -122,41 +133,49 @@ class ValidateInput(object):
                 result = True
         return result
 
-    def is_size_greater_than(self, file_size, value_to_compare):
-        """
-        this methos is to compare two number
-        :param file_size: It is a number
-        :param value_to_compare: Number
-        :return: It should be retrun true if the frist values is greater than second value
-        """
-        result = False
-        if file_size > value_to_compare:
-            result = True
-        return result
+    # def is_size_greater_than(self, file_size, value_to_compare):
+    #     """
+    #     this methos is to compare two number
+    #     :param file_size: It is a number
+    #     :param value_to_compare: Number
+    #     :return: It should be retrun true if the frist values is greater than second value
+    #     """
+    #     result = False
+    #     if file_size > value_to_compare:
+    #         result = True
+    #     return result
 
-    def is_size_less_than(self, file_size, value_to_compare):
+    def is_test(self, file_size, value_to_compare, oper):
         """
         this methos is to compare two number and verify if the fisrt number is less tha second number
         :param file_size: Number
         :param value_to_compare:Number
         :return: It retuns true if the fisrt number is less than second number in otherwise it return false
         """
+
         result = False
-        if file_size < value_to_compare:
-            result = True
+        if oper == str('<'):
+            if file_size < value_to_compare:
+                result = True
+        if oper == str('>'):
+            if file_size > value_to_compare:
+                result = True
+        if oper == str('='):
+            if file_size == value_to_compare:
+                result = True
         return result
 
-    def is_size_equals_than(self, file_size, value_to_compare):
-        """
-        this method retruns two number  to verify that both are equals
-        :param file_size: Number
-        :param value_to_compare:Number
-        :return: It returns true if both number are equals
-        """
-        result = False
-        if file_size == value_to_compare:
-            result = True
-        return result
+    # def is_size_equals_than(self, file_size, value_to_compare):
+    #     """
+    #     this method retruns two number  to verify that both are equals
+    #     :param file_size: Number
+    #     :param value_to_compare:Number
+    #     :return: It returns true if both number are equals
+    #     """
+    #     result = False
+    #     if file_size == value_to_compare:
+    #         result = True
+    #     return result
 
     def is_valid_extention(self, path):
         """
