@@ -100,6 +100,17 @@ class ValidateInput(object):
         path = path
         return os.path.isdir(path)
 
+    def is_valid_type_to_search(self, value):
+        """
+        This method is to validate the type field
+        :param value: Int
+        :return: This methos return tru if value is in (1, 2, 3) in otherwise is false
+        """
+        if value in (1, 2, 3):
+            return True
+        else:
+            return False
+
     def is_number(self, value):
         """
         This method verify that the value sent is o not a number
