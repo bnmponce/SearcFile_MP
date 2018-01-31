@@ -133,49 +133,27 @@ class ValidateInput(object):
                 result = True
         return result
 
-    # def is_size_greater_than(self, file_size, value_to_compare):
-    #     """
-    #     this methos is to compare two number
-    #     :param file_size: It is a number
-    #     :param value_to_compare: Number
-    #     :return: It should be retrun true if the frist values is greater than second value
-    #     """
-    #     result = False
-    #     if file_size > value_to_compare:
-    #         result = True
-    #     return result
-
-    def is_test(self, file_size, value_to_compare, oper):
+    def is_size_meets_condition(self, file_size, value_to_compare, operator):
         """
-        this methos is to compare two number and verify if the fisrt number is less tha second number
-        :param file_size: Number
-        :param value_to_compare:Number
-        :return: It retuns true if the fisrt number is less than second number in otherwise it return false
+        This method is implemented to verify that size meets the condition to search, this method receive 3 attributes
+        the size of file or folder, the value to compare the size and the operator
+        :param file_size: int
+        :param value_to_compare: int
+        :param oper: > < =
+        :return: it returns true when the size meets the condition that is sent by the operator in otherwise it returns false
         """
-
         result = False
-        if oper == str('<'):
+        if operator == str('<'):
             if file_size < value_to_compare:
                 result = True
-        if oper == str('>'):
+        if operator == str('>'):
             if file_size > value_to_compare:
                 result = True
-        if oper == str('='):
+        if operator == str('='):
             if file_size == value_to_compare:
                 result = True
         return result
 
-    # def is_size_equals_than(self, file_size, value_to_compare):
-    #     """
-    #     this method retruns two number  to verify that both are equals
-    #     :param file_size: Number
-    #     :param value_to_compare:Number
-    #     :return: It returns true if both number are equals
-    #     """
-    #     result = False
-    #     if file_size == value_to_compare:
-    #         result = True
-    #     return result
 
     def is_valid_extention(self, path):
         """
