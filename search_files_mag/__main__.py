@@ -44,8 +44,5 @@ if args.search:
         result_list.append(item.get_is_file())
         print(result_list)
 
-
-
 else:
     print("You need to introduce the -s argument to search your files/folders")
-

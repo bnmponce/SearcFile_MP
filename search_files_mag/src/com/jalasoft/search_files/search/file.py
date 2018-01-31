@@ -10,7 +10,8 @@ class File:
         self.size = size
 
     def get_size(self):
-        return self.size
+        size_in_megas = self.size / 1048576
+        return round(size_in_megas, 2)
 
     def set_is_file(self, flag):
         self.flag = flag
