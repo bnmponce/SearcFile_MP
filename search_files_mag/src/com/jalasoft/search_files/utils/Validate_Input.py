@@ -105,21 +105,45 @@ class ValidateInput(object):
         :param value: Int
         :return: This methos return tru if value is in (1, 2, 3) in otherwise is false
         """
-        if value in (1, 2, 3):
+        if value in ('1', '2', '3'):
             return True
         else:
             return False
 
-    def is_number(self, value):
+    def is_type_a_file(self, value):
         """
-        This method verify that the value sent is o not a number
-        :param value: It can be a int or string
-        :return: It returns True when the value is int, float, complex number otherwise it returns False
+        This methos is created to verify that type inset by user is a type for file
+        :param value: inte
+        :return:
         """
-        if type(value) in (int, float, complex):
-            return True
-        else:
-            return False
+        result = False
+        if value == '1':
+            result = True
+        return result
+
+    def is_type_a_folder(self, value):
+        result = False
+        if value == '2':
+            result = True
+        return result
+
+    def is_type_both_file_folder(self, value):
+
+        result = False
+        if value == '3':
+            result = True
+        return result
+
+    # def is_number(self, value):
+    #     """
+    #     This method verify that the value sent is o not a number
+    #     :param value: It can be a int or string
+    #     :return: It returns True when the value is int, float, complex number otherwise it returns False
+    #     """
+    #     if type(value) in (int, float, complex):
+    #         return True
+    #     else:
+    #         return False
 
     def is_valid_size(self, value):
         """
@@ -127,9 +151,9 @@ class ValidateInput(object):
         :param value: it is a number
         :return: It should be return true if the the value is a positive number
         """
+        value = float(value)
         result= False
-        if self.is_number(value):
-            if value >= 0:
+        if value >= 0:
                 result = True
         return result
 
@@ -143,31 +167,34 @@ class ValidateInput(object):
         :return: it returns true when the size meets the condition that is sent by the operator in otherwise it returns false
         """
         result = False
-        if operator == str('<'):
+        if operator == str('l'):
             if file_size < value_to_compare:
                 result = True
-        if operator == str('>'):
+        if operator == str('g'):
             if file_size > value_to_compare:
                 result = True
-        if operator == str('='):
+        if operator == str('e'):
             if file_size == value_to_compare:
                 result = True
         return result
 
 
-    def is_valid_extention(self, path):
+    def is_valid_extention(self, path, extension):
         """
-        This method is created to verify that the extexntion of a file is a valid extension
-        :param path: The path of the file is sent as a string
-        :return: it return true if the extension of the file is in the list of the extensions that are set in the method
+        This method is created to compare the extension of the file that was found
+        with the extension that was insert by user
+        :param path: it is the path of the file that is found
+        :param extension: it is the extansion that is inserted by user
+        :return: It retruns true inf extension of the file that is found is the same of extension insert by user
         """
         file = os.path.splitext(path)
-        extension = file[1]
-        valid_extension = ['.py', '.txt', 'jpg', '.png']
-        if extension in valid_extension:
+        exten = file[1]
+        if extension == exten:
             return True
         else:
             return False
+
+
 
 
 
