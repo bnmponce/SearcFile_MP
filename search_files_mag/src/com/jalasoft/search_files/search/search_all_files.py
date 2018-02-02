@@ -53,7 +53,37 @@ class SearchFiles:
         extension = path_splitted[1]
         return extension
 
-# search = SearchFiles()
-# result = search.file_all_results('D:\\', 'test', 3)
-# for i in result:
-#     print(i.get_path())
+    def filter_by_extension(self, extension, results):
+        filter_result = []
+        for result in results:
+            if extension in str(result.get_extension()):
+                filter_result.append(result.get_path())
+        return filter_result
+
+    def filter_by_size(self, operator, size_to_filter, results):
+        filter_result = []
+        for result in results:
+            if operator == 'e':
+                if result.get_size() == size_to_filter:
+                    path_and_size = (result.get_path(), result.get_size())
+                    filter_result.append(path_and_size)
+
+            if operator == 'l':
+                if result.get_size() < size_to_filter:
+                    path_and_size = (result.get_path(), result.get_size())
+                    filter_result.append(path_and_size)
+
+            if operator == 'g':
+                if result.get_size() > size_to_filter:
+                    path_and_size = (result.get_path(), result.get_size())
+                    filter_result.append(path_and_size)
+
+        return filter_result
+
+
+search = SearchFiles()
+result = search.file_all_results('D:\\', 'test', 3)
+i = search.filter_by_size('l', 1, result)
+for t in i:
+    print(t)
+
