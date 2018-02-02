@@ -1,4 +1,5 @@
 import os
+import unicodedata
 class ValidateInput(object):
     """
     ValidateInput class and methods
@@ -113,7 +114,7 @@ class ValidateInput(object):
     def is_type_a_file(self, value):
         """
         This methos is created to verify that type inset by user is a type for file
-        :param value: inte
+        :param value: int
         :return:
         """
         result = False
@@ -134,16 +135,6 @@ class ValidateInput(object):
             result = True
         return result
 
-    # def is_number(self, value):
-    #     """
-    #     This method verify that the value sent is o not a number
-    #     :param value: It can be a int or string
-    #     :return: It returns True when the value is int, float, complex number otherwise it returns False
-    #     """
-    #     if type(value) in (int, float, complex):
-    #         return True
-    #     else:
-    #         return False
 
     def is_valid_size(self, value):
         """
@@ -151,30 +142,42 @@ class ValidateInput(object):
         :param value: it is a number
         :return: It should be return true if the the value is a positive number
         """
-        value = float(value)
-        result= False
-        if value >= 0:
+        result = False
+        try:
+            size = float(value)
+            if size >= 0:
                 result = True
+            return result
+        except ValueError:
+            pass
+        try:
+            size=unicodedata.numeric(value)
+            if size >= 0:
+                result = True
+            return result
+        except(TypeError, ValueError):
+            pass
         return result
 
-    def is_size_meets_condition(self, file_size, value_to_compare, operator):
+    def is_size_meets_condition(self, file, value_to_compare, operator):
         """
-        This method is implemented to verify that size meets the condition to search, this method receive 3 attributes
-        the size of file or folder, the value to compare the size and the operator
-        :param file_size: int
-        :param value_to_compare: int
-        :param oper: > < =
-        :return: it returns true when the size meets the condition that is sent by the operator in otherwise it returns false
+        This method is created to compare the size of the file that was found with the size conditional entered by user
+        :param file: It is a tuple that contaiuns the file name and file size
+        :param value_to_compare: It is the size that is entered by user
+        :param operator: It is a character that is insert by user as condition
+        :return: It returns true is the file size meets the conditions otherwise it returns false.
         """
         result = False
+        size = file[1]
+        value = float(value_to_compare)
         if operator == str('l'):
-            if file_size < value_to_compare:
+            if size < value:
                 result = True
         if operator == str('g'):
-            if file_size > value_to_compare:
+            if size > value:
                 result = True
         if operator == str('e'):
-            if file_size == value_to_compare:
+            if size == value:
                 result = True
         return result
 
@@ -193,11 +196,4 @@ class ValidateInput(object):
             return True
         else:
             return False
-
-
-
-
-
-
-
 
