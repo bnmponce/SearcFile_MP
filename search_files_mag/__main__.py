@@ -1,24 +1,24 @@
 from src.com.jalasoft.search_files.menu.menu_options import *
 from src.com.jalasoft.search_files.search.search_all_files import *
-from src.com.jalasoft.search_files.utils.Validate_Input import *
+from src.com.jalasoft.search_files.utils.validate_input import *
 
 menu = Menu()
-valid_name = ValidateInput()
+valid_input = ValidateInput()
 print_menu = PrintMenu()
 args = print_menu.print_menu()
+search = SearchFiles()
 
 if args.search:
-    # print("call name validator")
-    print(args.name)
+    #print(args.name)
     if args.name:
-        validator = valid_name.is_valid_name(args.name) #Add method to validate name
+        validator = valid_input.is_valid_name(args.name)
         if validator:
             menu.set_name(args.name)
         else:
             print("Please, enter a valid name, the following characters are not valid: :/\?*|<> ")
             exit()
     if args.path:
-        validator = valid_name.is_valid_path(args.path) #Add method to validate path
+        validator = valid_input.is_valid_path(args.path)
         if validator:
             menu.set_path(args.path)
         else:
@@ -31,18 +31,34 @@ if args.search:
         else:
             print("Please, enter a valid type: 1=file, 2=folder, 3=both")
             exit()
-    # Add method to search
     print("Searching.....")
-
-    search = SearchFiles()
     results = search.file_all_results(args.path, args.name, int(args.type))
+
+    if args.extension:
+        validator = True #Add method to validate extension
+        if validator:
+            menu.set_extension(args.extension)
+        else:
+            print("please, enter a valid extension: .* .doc, etc")
+            exit()
+        results = search.filter_by_extension(args.extension, results)
+
+    if args.size:
+        validator = True #valid_input.is_valid_size(args.size)
+        if validator:
+            menu.set_size(args.size)
+            if args.operator == 'l':
+                results = search.filter_by_size('l', int(args.size), results)
+            if args.operator == 'g':
+                results = search.filter_by_size('g', int(args.size), results)
+            if args.operator == 'e':
+                results = search.filter_by_size('e', int(args.size), results)
+        else:
+            print("please enter a valid number as size, negative numbers or characters are not allowed")
+            exit()
+
     for item in results:
-        result_list = []
-        result_list.append(item.get_path())
-        result_list.append(item.get_size())
-        result_list.append(item.get_extension())
-        result_list.append(item.get_is_file())
-        print(result_list)
+        print(item)
 
 else:
     print("You need to introduce the -s argument to search your files/folders")
