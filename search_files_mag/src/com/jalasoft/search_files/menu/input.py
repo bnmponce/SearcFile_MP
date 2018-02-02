@@ -1,9 +1,7 @@
 import configparser
-import argparse
-
 
 class Menu:
-    config_file = 'C:\\Users\\Administrator\\Documents\\SearchFileProject\\search_files_mag\\config\\settings.ini'
+    config_file = 'D:\DevFundamentals\Search\search_files_mag\config\settings.ini'
     def read_settings(self):
         config = configparser.ConfigParser()
         config.read(self.config_file)
