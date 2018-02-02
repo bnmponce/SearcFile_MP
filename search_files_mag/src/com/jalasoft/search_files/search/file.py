@@ -1,4 +1,6 @@
-class File:
+import time
+
+class File(object):
 
     def set_path(self, path):
         self.path = path
@@ -24,3 +26,32 @@ class File:
 
     def get_extension(self):
         return self.extension
+
+    def set_date_created(self, date_created):
+        self.date_created = self.convert_date(date_created)
+
+    def get_date_created(self):
+        return self.date_created
+
+    def set_date_modified(self, date_modified):
+        self.date_modified = date_modified
+
+    def get_date_modified(self):
+        return self.date_modified
+
+    def set_date_accessed(self, date_accessed):
+        self.data_accessed = date_accessed
+
+    def get_date_accessed(self):
+        return self.data_accessed
+
+    def set_owner(self, owner):
+        self.owner = owner
+
+    def get_owner(self):
+        return self.owner
+
+    def convert_date(self, date_in_float):
+        time_in_date = time.gmtime(date_in_float)
+        time_with_format = time.strftime("%d-%b-%Y", time_in_date)
+        return time_with_format

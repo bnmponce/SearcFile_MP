@@ -1,4 +1,4 @@
-import sys, os
+import os
 from src.com.jalasoft.search_files.search.file import File
 
 
@@ -27,6 +27,7 @@ class SearchFiles:
                         file_object.set_size(os.path.getsize(file_and_path))
                         file_object.set_is_file(True)
                         file_object.set_extension(self.extract_extension(file_and_path))
+                        file_object.set_date_created(os.path.getctime(file_and_path))
                         results.append(file_object)
 
             if type_search == 2 or type_search == 3:
@@ -38,22 +39,18 @@ class SearchFiles:
                         file_object.set_size(self.calculate_folder_size(folder_and_path))
                         file_object.set_is_file(False)
                         file_object.set_extension(None)
+                        file_object.set_date_created(os.path.getctime(folder_and_path))
                         results.append(file_object)
         return results
 
-    def calculate_folder_size(self, path):
-        folder_size = 0
-        for root, folders, files in os.walk(path):
-            for file in files:
-                folder_size = folder_size + os.path.getsize(os.path.join(root, file))
-        return folder_size
-
-    def extract_extension(self, path):
-        path_splitted = os.path.splitext(path)
-        extension = path_splitted[1]
-        return extension
-
     def filter_by_extension(self, extension, results):
+        """
+        Given the search result and the extension that need to be filtered this method return a filtered result that show just
+        the files with the extension received
+        :param extension: extension to show
+        :param results: previous search result that need to be filtered
+        :return: The file path for all the files that have the extension received as parameter
+        """
         filter_result = []
         for result in results:
             if extension in str(result.get_extension()):
@@ -61,6 +58,14 @@ class SearchFiles:
         return filter_result
 
     def filter_by_size(self, operator, size_to_filter, results):
+        """
+        This method filter the result received according the operators, size_to_filter and results for equal to size to filter
+        of the result also received as parameter
+        :param operator: Allowed values are 'l' for less than, 'g' for greater than and 'e'
+        :param size_to_filter: the size_to_filter
+        :param results: It's the result of the previous search
+        :return: A list that meets with the criteria to be filtered
+        """
         filter_result = []
         for result in results:
             if operator == 'e':
@@ -80,10 +85,44 @@ class SearchFiles:
 
         return filter_result
 
+    def filter_by_date(self, results, date):
+        result_filtered = []
+        for result in results:
+            if date == result.get_date_created():
+                path = result.get_path()
+                date_created = result.get_date_created()
+                path_date_created = (path, date_created)
+                result_filtered.append(path_date_created)
+        return result_filtered
 
-search = SearchFiles()
-result = search.file_all_results('D:\\', 'test', 3)
-i = search.filter_by_size('l', 1, result)
-for t in i:
-    print(t)
+    def calculate_folder_size(self, path):
+        """
+        Given a folder name this method calculate the total size
+        :param path: Folder path
+        :return: folder size in bytes
+        """
+        folder_size = 0
+        for root, folders, files in os.walk(path):
+            for file in files:
+                folder_size = folder_size + os.path.getsize(os.path.join(root, file))
+        return folder_size
 
+    def extract_extension(self, path):
+        """
+        This method extract the extension from the path received as parameter
+        :param path: file path
+        :return: for a file path it return extension and return None if it's a folder path
+        """
+        path_splitted = os.path.splitext(path)
+        extension = path_splitted[1]
+        return extension
+
+
+
+
+# search = SearchFiles()
+# result = search.file_all_results('D:\\', 'test', 3)
+# x = search.filter_by_date(result, '21-May-2013')
+# for t in x:
+#     print(t)
+#

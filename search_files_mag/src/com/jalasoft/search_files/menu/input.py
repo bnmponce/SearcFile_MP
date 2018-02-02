@@ -1,7 +1,11 @@
 import configparser
+import definition
 
 class Menu:
-    config_file = 'E:\\2018\\DevFundamentals2\\SearchFileProject\\search_files_mag\\config\\settings.ini'
+
+    config_file = definition.ROOT_DIR + "\\config\\settings.ini"
+    #config_file = 'E:\\2018\\DevFundamentals2\\SearchFileProject\\search_files_mag\\config\\settings.ini'
+
     def read_settings(self):
         config = configparser.ConfigParser()
         config.read(self.config_file)
