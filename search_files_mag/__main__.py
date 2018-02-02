@@ -1,6 +1,6 @@
 from src.com.jalasoft.search_files.menu.menu_options import *
 from src.com.jalasoft.search_files.search.search_all_files import *
-from src.com.jalasoft.search_files.utils.Validate_Input import *
+from src.com.jalasoft.search_files.utils.validate_input import *
 
 menu = Menu()
 valid_name = ValidateInput()
@@ -44,8 +44,5 @@ if args.search:
         result_list.append(item.get_is_file())
         print(result_list)
 
-
-
 else:
     print("You need to introduce the -s argument to search your files/folders")
-
