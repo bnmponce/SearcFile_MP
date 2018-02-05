@@ -25,7 +25,6 @@ if args.search:
             print("The path you enter does not exist. Please enter a valid path")
             exit()
     if args.type:
-        #validator = True
         validator = valid_input.is_valid_type(args.type)
         if validator:
             menu.set_type_search(args.type)
@@ -37,7 +36,6 @@ if args.search:
 
     if args.extension:
         validator = True
-        # validator = valid_input.is_valid_extention(args.path, args.extension)# #Add method to validate extension
         if validator:
             menu.set_extension(args.extension)
         else:
@@ -46,16 +44,15 @@ if args.search:
         result_ext = search.filter_by_extension(args.extension, results)
 
     if args.size:
-        validator = True
-        #validator = valid_input.is_valid_size(args.size)
+        validator = valid_input.is_valid_size(args.size)
         if validator:
             menu.set_size(args.size)
             if args.operator == 'l':
-                results = search.filter_by_size('l', int(args.size), results)
+                results = search.filter_by_size('l', float(args.size), results)
             if args.operator == 'g':
-                results = search.filter_by_size('g', int(args.size), results)
+                results = search.filter_by_size('g', float(args.size), results)
             if args.operator == 'e':
-                result_size = search.filter_by_size('e', int(args.size), results)
+                results = search.filter_by_size('e', float(args.size), results)
         else:
             print("please enter a valid number as size, negative numbers or characters are not allowed")
             exit()
@@ -66,7 +63,7 @@ if args.search:
             menu.set_date(args.date)
             results_date = search.filter_by_date(results, args.date)
         else:
-            print("please enter a valid date in the following format 'DD-MM-YYYY'")
+            print("Please enter a valid date in the following format 'MM-DD-YYYY' un numeral format")
             exit()
 
 
