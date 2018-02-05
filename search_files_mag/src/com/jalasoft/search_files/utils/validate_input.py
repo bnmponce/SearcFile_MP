@@ -201,22 +201,25 @@ class ValidateInput(object):
 
     def is_valid_date(self, input_date):
         date = input_date.split('-')
-        year = int(date[0])
-        month = int(date[1])
-        day = int(date[2])
         result = False
-        if year >= 0 and year <= 9999:
+        try:
+            month = int(date[0])
+            day = int(date[1])
+            year = int(date[2])
+            if year >= 0 and year <= 9999:
 
-            if month >= 1 and month <= 12:
+                if month >= 1 and month <= 12:
 
-                if month == 2:
-                    if day >=1 and day <=28:
+                    if month == 2:
+                        if day >= 1 and day <= 28:
+                            result = True
+                    else:
+                        if day >= 1 and day <= 31:
+                            result = True
+            return result
+        except ValueError:
+            pass
 
-                        result = True
-                else:
-                    if day >= 1 and day <= 31:
-
-                        result = True
         return result
 
 
@@ -241,20 +244,6 @@ class ValidateInput(object):
         if operator == str('e'):
             if res_date == date:
                 result = True
-
-        return result
-
-    def is_date_between(self,result_date, minor_date, major_date):
-        minor_date = minor_date.split('-')
-        mi_date = int(minor_date[0]+ minor_date[1]+minor_date[2])
-        major_date = major_date.split('-')
-        ma_date = int(major_date[0] + major_date[1] + major_date[2])
-        result_date = result_date.split('-')
-        res_date = int(result_date [0] + result_date[1] + result_date[2])
-        result = False
-
-        if (res_date >= mi_date) and (res_date <= ma_date):
-            result = True
 
         return result
 
