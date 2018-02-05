@@ -1,8 +1,5 @@
 import os
 import unicodedata
-import time
-import parser
-
 
 class ValidateInput(object):
     """
@@ -200,6 +197,7 @@ class ValidateInput(object):
             return True
         else:
             return False
+
 
     def is_valid_date(self, input_date):
         date = input_date.split('-')
