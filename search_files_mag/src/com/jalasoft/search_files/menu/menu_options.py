@@ -1,6 +1,6 @@
 import argparse
 
-from src.com.jalasoft.search_files.menu.input import *
+import src.com.jalasoft.search_files.menu.input
 
 class PrintMenu(object):
 
@@ -55,6 +55,12 @@ class PrintMenu(object):
             '-ex',
             # default=menu_options.get_extension(),
             help='Configure the file extension to search. It will search all file types by default if none is given',
+        )
+        parser.add_argument(
+            '--date',
+            '-d',
+            # default=menu_options.get_extension(),
+            help='Configure the date to search a file',
         )
 
         args = parser.parse_args()

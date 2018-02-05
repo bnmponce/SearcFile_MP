@@ -52,7 +52,11 @@ class Menu:
     #     config = self.read_settings()
     #     operator = config['CONFIG']['operator']
     #     return operator
-        
+
+    def get_date(self):
+        config = self.read_settings()
+        date = config['CONFIG']['date']
+        return date
 
     # method to overwrite name on settings.ini file
     def set_name(self, name):
@@ -101,3 +105,10 @@ class Menu:
     #     with open(self.config_file, 'w') as configfile:
     #         config.write(configfile)
     #     self.get_operator()
+
+    def set_date(self, date):
+        config = self.read_settings()
+        config['CONFIG']['date'] = date
+        with open(self.config_file, 'w') as configfile:
+            config.write(configfile)
+        self.get_date()
