@@ -155,7 +155,7 @@ class ValidateInput(object):
         except ValueError:
             pass
         try:
-            size=unicodedata.numeric(value)
+            size = unicodedata.numeric(value)
             if size >= 0:
                 result = True
             return result
@@ -260,5 +260,3 @@ class ValidateInput(object):
 
         return result
 
-vali = ValidateInput()
-print(vali.is_date_meets_condition('2018-02-23', '2015-12-02', 'l') )
