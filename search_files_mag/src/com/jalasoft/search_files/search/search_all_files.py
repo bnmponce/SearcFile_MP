@@ -1,4 +1,5 @@
 import os
+from datetime import *
 from src.com.jalasoft.search_files.search.file import File
 
 
@@ -85,14 +86,28 @@ class SearchFiles:
 
         return filter_result
 
-    def filter_by_date(self, results, date):
+    def filter_by_date(self, results, date, operator):
         result_filtered = []
+        date_get = self.convert_date(date)
         for result in results:
-            if date == result.get_date_created():
-                path = result.get_path()
-                date_created = result.get_date_created()
-                path_date_created = (path, date_created)
-                result_filtered.append(path_date_created)
+            if operator == 'e':
+                if result.get_date_created() == date_get:
+                    path = result.get_path()
+                    date_created = result.get_date_created()
+                    path_date_created = (path, date_created)
+                    result_filtered.append(path_date_created)
+            if operator == 'l':
+                if result.get_date_created() < date_get:
+                    path = result.get_path()
+                    date_created = result.get_date_created()
+                    path_date_created = (path, date_created)
+                    result_filtered.append(path_date_created)
+            if operator == 'g':
+                if result.get_date_created() > date_get:
+                    path = result.get_path()
+                    date_created = result.get_date_created()
+                    path_date_created = (path, date_created)
+                    result_filtered.append(path_date_created)
         return result_filtered
 
     def calculate_folder_size(self, path):
@@ -117,12 +132,27 @@ class SearchFiles:
         extension = path_splitted[1]
         return extension
 
+    def convert_date(self, date):
+        date_on_string = date.replace('-', '')
+        return datetime.strptime(date_on_string, '%m%d%Y')
+
 
 
 
 # search = SearchFiles()
+# result = search.convert_date('02-05-2018')
+
+
+
+search = SearchFiles()
+result = search.file_all_results('D:\\', 'test', 3)
+t = search.filter_by_date(result, '07-31-2013', 'e')
+for i in t:
+    # print(type(i))
+    print(i)
+
+
+# search = SearchFiles()
 # result = search.file_all_results('D:\\', 'test', 3)
-# x = search.filter_by_date(result, '21-May-2013')
-# for t in x:
-#     print(t)
-#
+# for i in result:
+#     print(i.get_date_created())

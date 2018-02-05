@@ -1,5 +1,4 @@
 import argparse
-
 from src.com.jalasoft.search_files.menu.input import *
 
 class PrintMenu(object):

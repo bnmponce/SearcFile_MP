@@ -1,4 +1,5 @@
 import time
+from datetime import datetime
 
 class File(object):
 
@@ -52,6 +53,13 @@ class File(object):
         return self.owner
 
     def convert_date(self, date_in_float):
+        """
+        This method convert a date in float a string "%d-%b-%Y"; %d = day, %b = month and %Y = year
+        :param date_in_float: date in float
+        :return: return a date in string
+        """
         time_in_date = time.gmtime(date_in_float)
-        time_with_format = time.strftime("%d-%b-%Y", time_in_date)
-        return time_with_format
+        time_with_format = time.strftime("%m-%d-%Y", time_in_date)
+        date_on_string = time_with_format.replace('-', '')
+        date = datetime.strptime(date_on_string, '%m%d%Y')
+        return date

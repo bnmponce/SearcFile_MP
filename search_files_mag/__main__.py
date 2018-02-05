@@ -41,7 +41,7 @@ if args.search:
         else:
             print("please, enter a valid extension: .* .doc, etc")
             exit()
-        results = search.filter_by_extension(args.extension, results)
+        result_ext = search.filter_by_extension(args.extension, results)
 
     if args.size:
         validator = valid_input.is_valid_size(args.size)
@@ -61,10 +61,11 @@ if args.search:
         validator = True #valid date validation
         if validator:
             menu.set_date(args.date)
-            results = search.filter_by_date(results, args.date)
+            results_date = search.filter_by_date(results, args.date)
         else:
             print("Please enter a valid date in the following format 'MM-DD-YYYY' un numeral format")
             exit()
+
 
     for item in results:
         print(item)
