@@ -223,82 +223,42 @@ class ValidateInput(object):
 
 
     def is_date_meets_condition(self, result_date, input_date, operator):
-        date = input_date.split('-')
-        date_year = int(date[0])
-        date_month = int(date[1])
-        date_day = int(date[2])
-        res_date = result_date.split('-')
-        res_year = int(res_date[0])
-        res_month = int(res_date[1])
-        res_day = int(res_date[2])
+        input_date = input_date.split('-')
+        date = int(input_date[0] + input_date[1] + input_date[2])
+        result_date= result_date.split('-')
+        res_date = int(result_date[0] + result_date[1]+ result_date[2])
+        print(type(res_date), res_date)
+        print(type(date), date)
 
         result = False
 
         if operator == str('l'):
-            if res_year < date_year:
+            if res_date <= date:
                 result = True
-            else:
-                if res_year == date_year:
-                    if res_month < date_month:
-                        result = True
-                    else:
-                        if res_month == date_month:
-                            if res_day < date_day:
-                                result = True
 
         if operator == str('g'):
-            if res_year > date_year:
+            if res_date > date:
                 result = True
-            else:
-                if res_year == date_year:
-                    if res_month > date_month:
-                        result = True
-                    else:
-                        if res_month == date_month:
-                            if res_day > date_day:
-                                result = True
+
         if operator == str('e'):
-            if res_year == date_year:
-                if res_month == date_month:
-                    if res_day == date_day:
-                        result = True
+            if res_date == date:
+                result = True
 
         return result
 
     def is_date_between(self,result_date, minor_date, major_date):
-        mi_date = minor_date.split('-')
-        mi_year = int(mi_date[0])
-        mi_month = int(mi_date[1])
-        mi_day = int(mi_date[2])
-        ma_date = major_date.split('-')
-        ma_year = int(ma_date[0])
-        ma_month = int(ma_date[1])
-        ma_day = int(ma_date[2])
-        res_date = result_date.split('-')
-        res_year = int(res_date[0])
-        res_month = int(res_date[1])
-        res_day = int(res_date[2])
-
+        minor_date = minor_date.split('-')
+        mi_date = int(minor_date[0]+ minor_date[1]+minor_date[2])
+        major_date = major_date.split('-')
+        ma_date = int(major_date[0] + major_date[1] + major_date[2])
+        result_date = result_date.split('-')
+        res_date = int(result_date [0] + result_date[1] + result_date[2])
         result = False
 
-        if (res_year > mi_year) and (res_year < ma_year):
+        if (res_date >= mi_date) and (res_date <= ma_date):
             result = True
 
-        else:
-            if res_year == mi_year:
-                if res_month > mi_month:
-                    result = True
-                else:
-                    if res_month == mi_month:
-                        if res_day >= mi_day:
-                            result = True
-
-            else:
-                if res_year == ma_year:
-                    if res_month < ma_month:
-                        result = True
-                else:
-                    if res_month == ma_month:
-                        if res_day <= ma_day:
-                            result = True
         return result
+
+vali = ValidateInput()
+print(vali.is_date_meets_condition('2018-02-23', '2015-12-02', 'l') )
