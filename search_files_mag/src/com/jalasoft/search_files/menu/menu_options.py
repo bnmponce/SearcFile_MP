@@ -1,6 +1,6 @@
 import argparse
 
-import src.com.jalasoft.search_files.menu.input
+from src.com.jalasoft.search_files.menu.input import *
 
 class PrintMenu(object):
 
@@ -37,7 +37,6 @@ class PrintMenu(object):
         parser.add_argument(
             '--size',
             '-z',
-            default=menu_options.get_size(),
             help='Configure the file size (Mb) to search. If you specify only the size, it will search by default'
                  ' the files size less than the size specified. Otherwise use the following operators: -l, -g or -e'
         )
@@ -53,13 +52,11 @@ class PrintMenu(object):
         parser.add_argument(
             '--extension',
             '-ex',
-            # default=menu_options.get_extension(),
             help='Configure the file extension to search. It will search all file types by default if none is given',
         )
         parser.add_argument(
             '--date',
             '-d',
-            # default=menu_options.get_extension(),
             help='Configure the date to search a file',
         )
 
