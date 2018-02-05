@@ -25,7 +25,8 @@ if args.search:
             print("The path you enter does not exist. Please enter a valid path")
             exit()
     if args.type:
-        validator = True #Add method to validate file type
+        #validator = True
+        validator = valid_input.is_valid_type(args.type)
         if validator:
             menu.set_type_search(args.type)
         else:
@@ -35,7 +36,8 @@ if args.search:
     results = search.file_all_results(args.path, args.name, int(args.type))
 
     if args.extension:
-        validator = True #Add method to validate extension
+        #validator = True
+        validator = valid_input.is_valid_extention(args.path, args.extension)# #Add method to validate extension
         if validator:
             menu.set_extension(args.extension)
         else:
@@ -44,7 +46,8 @@ if args.search:
         results = search.filter_by_extension(args.extension, results)
 
     if args.size:
-        validator = True #valid_input.is_valid_size(args.size)
+        validator = True
+        #validator = valid_input.is_valid_size(args.size)
         if validator:
             menu.set_size(args.size)
             if args.operator == 'l':
@@ -55,6 +58,15 @@ if args.search:
                 results = search.filter_by_size('e', int(args.size), results)
         else:
             print("please enter a valid number as size, negative numbers or characters are not allowed")
+            exit()
+
+    if args.date:
+        validator = True #valid date validation
+        if validator:
+            menu.set_date(args.date)
+            results = search.filter_by_date(results, args.date)
+        else:
+            print("please enter a valid date in the following format 'DD-MM-YYYY'")
             exit()
 
     for item in results:
