@@ -1,5 +1,9 @@
 import os
 import unicodedata
+import time
+import parser
+
+
 class ValidateInput(object):
     """
     ValidateInput class and methods
@@ -197,3 +201,104 @@ class ValidateInput(object):
         else:
             return False
 
+    def is_valid_date(self, input_date):
+        date = input_date.split('-')
+        year = int(date[0])
+        month = int(date[1])
+        day = int(date[2])
+        result = False
+        if year >= 0 and year <= 9999:
+
+            if month >= 1 and month <= 12:
+
+                if month == 2:
+                    if day >=1 and day <=28:
+
+                        result = True
+                else:
+                    if day >= 1 and day <= 31:
+
+                        result = True
+        return result
+
+
+    def is_date_meets_condition(self, result_date, input_date, operator):
+        date = input_date.split('-')
+        date_year = int(date[0])
+        date_month = int(date[1])
+        date_day = int(date[2])
+        res_date = result_date.split('-')
+        res_year = int(res_date[0])
+        res_month = int(res_date[1])
+        res_day = int(res_date[2])
+
+        result = False
+
+        if operator == str('l'):
+            if res_year < date_year:
+                result = True
+            else:
+                if res_year == date_year:
+                    if res_month < date_month:
+                        result = True
+                    else:
+                        if res_month == date_month:
+                            if res_day < date_day:
+                                result = True
+
+        if operator == str('g'):
+            if res_year > date_year:
+                result = True
+            else:
+                if res_year == date_year:
+                    if res_month > date_month:
+                        result = True
+                    else:
+                        if res_month == date_month:
+                            if res_day > date_day:
+                                result = True
+        if operator == str('e'):
+            if res_year == date_year:
+                if res_month == date_month:
+                    if res_day == date_day:
+                        result = True
+
+        return result
+
+    def is_date_between(self,result_date, minor_date, major_date):
+        mi_date = minor_date.split('-')
+        mi_year = int(mi_date[0])
+        mi_month = int(mi_date[1])
+        mi_day = int(mi_date[2])
+        ma_date = major_date.split('-')
+        ma_year = int(ma_date[0])
+        ma_month = int(ma_date[1])
+        ma_day = int(ma_date[2])
+        res_date = result_date.split('-')
+        res_year = int(res_date[0])
+        res_month = int(res_date[1])
+        res_day = int(res_date[2])
+
+        result = False
+
+        if (res_year > mi_year) and (res_year < ma_year):
+            result = True
+
+        else:
+            if res_year == mi_year:
+                if res_month > mi_month:
+                    result = True
+                else:
+                    if res_month == mi_month:
+                        if res_day >= mi_day:
+                            result = True
+
+            else:
+                if res_year == ma_year:
+                    if res_month < ma_month:
+                        result = True
+                else:
+                    if res_month == ma_month:
+                        if res_day <= ma_day:
+                            result = True
+        return result
