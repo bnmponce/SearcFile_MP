@@ -36,14 +36,14 @@ if args.search:
     results = search.file_all_results(args.path, args.name, int(args.type))
 
     if args.extension:
-        #validator = True
-        validator = valid_input.is_valid_extention(args.path, args.extension)# #Add method to validate extension
+        validator = True
+        # validator = valid_input.is_valid_extention(args.path, args.extension)# #Add method to validate extension
         if validator:
             menu.set_extension(args.extension)
         else:
             print("please, enter a valid extension: .* .doc, etc")
             exit()
-        results = search.filter_by_extension(args.extension, results)
+        result_ext = search.filter_by_extension(args.extension, results)
 
     if args.size:
         validator = True
@@ -55,7 +55,7 @@ if args.search:
             if args.operator == 'g':
                 results = search.filter_by_size('g', int(args.size), results)
             if args.operator == 'e':
-                results = search.filter_by_size('e', int(args.size), results)
+                result_size = search.filter_by_size('e', int(args.size), results)
         else:
             print("please enter a valid number as size, negative numbers or characters are not allowed")
             exit()
@@ -64,10 +64,11 @@ if args.search:
         validator = True #valid date validation
         if validator:
             menu.set_date(args.date)
-            results = search.filter_by_date(results, args.date)
+            results_date = search.filter_by_date(results, args.date)
         else:
             print("please enter a valid date in the following format 'DD-MM-YYYY'")
             exit()
+
 
     for item in results:
         print(item)
