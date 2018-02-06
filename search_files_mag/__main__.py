@@ -62,8 +62,8 @@ if args.search:
             exit()
 
     if args.date and args.opdate and args.controldate:
-        #validator = True #valid date validation
-        validator = valid_input.is_valid_date(args.date)
+        validator = True #valid date validation
+        # validator = valid_input.is_valid_date(args.date)
         if validator:
             validator = True #valid_input.is_valid_opdate(args.opdate)
             if validator:
@@ -87,9 +87,9 @@ if args.search:
         else:
             print("Please enter a valid date in the following format 'MM-DD-YYYY' un numeral format")
             exit()
-    else:
-        print("You must to enter three parameters to search by date: -d, -op, -cd")
-        exit()
+    # else:
+    #     print("You must to enter three parameters to search by date: -d, -op, -cd")
+    #     exit()
 
     for item in results:
         print(item)
