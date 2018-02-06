@@ -1,4 +1,5 @@
 import time
+from datetime import datetime
 
 class File(object):
 
@@ -34,16 +35,16 @@ class File(object):
         return self.date_created
 
     def set_date_modified(self, date_modified):
-        self.date_modified = date_modified
+        self.date_modified = self.convert_date(date_modified)
 
     def get_date_modified(self):
         return self.date_modified
 
-    def set_date_accessed(self, date_accessed):
-        self.data_accessed = date_accessed
+    def set_date_last_access(self, date_accessed):
+        self.date_accessed = self.convert_date(date_accessed)
 
-    def get_date_accessed(self):
-        return self.data_accessed
+    def get_date_last_access(self):
+        return self.date_accessed
 
     def set_owner(self, owner):
         self.owner = owner
@@ -52,6 +53,11 @@ class File(object):
         return self.owner
 
     def convert_date(self, date_in_float):
-        time_in_date = time.gmtime(date_in_float)
-        time_with_format = time.strftime("%d-%b-%Y", time_in_date)
-        return time_with_format
+        """
+        This method convert a date in float a string "%d-%b-%Y"; %d = day, %b = month and %Y = year
+        :param date_in_float: date in float
+        :return: return a date in string
+        """
+        time_in_date = datetime.fromtimestamp(date_in_float)
+        date = datetime.strftime(time_in_date, '%m%d%Y')
+        return date

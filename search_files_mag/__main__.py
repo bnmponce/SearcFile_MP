@@ -45,7 +45,7 @@ if args.search:
         else:
             print("please, enter a valid extension: .* .doc, etc")
             exit()
-        results = search.filter_by_extension(args.extension, results)
+        result_ext = search.filter_by_extension(args.extension, results)
 
     if args.size:
         validator = valid_input.is_valid_size(args.size)
@@ -61,15 +61,35 @@ if args.search:
             print("please enter a valid number as size, negative numbers or characters are not allowed")
             exit()
 
-    if args.date:
-        validator = True #valid date validation
-        #validator = valid_input.is_valid_date(args.date)
+    if args.date and args.opdate and args.controldate:
+        #validator = True #valid date validation
+        validator = valid_input.is_valid_date(args.date)
         if validator:
-            menu.set_date(args.date)
-            results = search.filter_by_date(results, args.date)
+            validator = True #valid_input.is_valid_opdate(args.opdate)
+            if validator:
+                validator = True #valid_input.is_valid_controldate(args.controldate)
+                if validator:
+                    #menu.set_date(args.date)
+                    if args.controldate == 'c':
+                        results = search.filter_by_date_created(results, args.date, args.opdate)
+                    elif args.controldate == 'm':
+                        results = search.filter_by_date_modified(results, args.date, args.opdate)
+                    elif args.controldate == 'a':
+                        results = search.filter_by_date_last_access(results, args.date, args.opdate)
+                    else:
+                        print("invalid control date entered")
+                else:
+                    print("Please, enter a valid control date parameter: c, m or a")
+                    exit()
+            else:
+                print("Please enter a valid operator date valid: l, g, e")
+                exit()
         else:
             print("Please enter a valid date in the following format 'MM-DD-YYYY' un numeral format")
             exit()
+    else:
+        print("You must to enter three parameters to search by date: -d, -op, -cd")
+        exit()
 
     for item in results:
         print(item)

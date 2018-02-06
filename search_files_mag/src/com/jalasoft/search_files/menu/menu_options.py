@@ -1,5 +1,4 @@
 import argparse
-
 from src.com.jalasoft.search_files.menu.input import *
 
 class PrintMenu(object):
@@ -69,6 +68,22 @@ class PrintMenu(object):
             '--date',
             '-d',
             help='Configure the date to search a file',
+        )
+        parser.add_argument(
+            '--opdate',
+            '-od',
+            help='enter the date operator to search by specific date:'
+                 ' -l: to search files less than the date specified'
+                 ' -g: to search the files greater than the date specified'
+                 ' -e: to search the exact match date ',
+        )
+        parser.add_argument(
+            '--controldate',
+            '-cd',
+            help='enter the operator to search by control date: created, modified and acceded'
+                 ' -c: to search files created in the specified date'
+                 ' -m: to search files modified in the specified date'
+                 ' -a: to search files acceded in the specified date ',
         )
 
         args = parser.parse_args()
