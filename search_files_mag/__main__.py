@@ -92,8 +92,12 @@ if args.search:
     #     exit()
 
     for item in results:
-        print(item.get_path())
-        #print(item)
+        if type(item) == tuple:
+            print(item)
+
+        else:
+            print(item.get_path())
+
 
 else:
     print("You need to introduce the -s argument to search your files/folders")
