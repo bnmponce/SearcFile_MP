@@ -3,8 +3,19 @@ import argparse
 from src.com.jalasoft.search_files.menu.input import *
 
 class PrintMenu(object):
-
+    """
+    Print Menu class and method
+    This class contains the method that will define the arguments required in our menu based on
+    command-line parsing module.
+    """
     def print_menu(self):
+        """
+        This method contains the options/arguments available in the command-line menu by using the
+        add_argument() method.
+        args contains the data from the options specified by using the parse_args() method.
+        :param self:
+        :return: The arguments
+        """
         menu_options = Menu()
         parser = argparse.ArgumentParser(
             description = 'DEV FUNDAMENTALS II - SEARCH FILES AND FOLDERS.',

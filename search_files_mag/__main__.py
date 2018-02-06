@@ -8,6 +8,10 @@ print_menu = PrintMenu()
 args = print_menu.print_menu()
 search = SearchFiles()
 
+"""
+This is the main class to calls menu, validator ad search classes to perform the search based on user's inputs.
+:param args: args.arguments returns the value given as input.
+"""
 if args.search:
     #print(args.name)
     if args.name:
@@ -59,6 +63,7 @@ if args.search:
 
     if args.date:
         validator = True #valid date validation
+        #validator = valid_input.is_valid_date(args.date)
         if validator:
             menu.set_date(args.date)
             results = search.filter_by_date(results, args.date)
