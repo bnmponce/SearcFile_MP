@@ -291,8 +291,3 @@ class ValidateInput(object):
         if value in ('l', 'g', 'e'):
             result = True
         return result
-
-
-
-valid = ValidateInput()
-print(valid.is_valid_date('ggg'))
