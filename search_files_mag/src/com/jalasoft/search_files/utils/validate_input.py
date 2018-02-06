@@ -1,5 +1,6 @@
 import os
 import unicodedata
+
 class ValidateInput(object):
     """
     ValidateInput class and methods
@@ -151,7 +152,7 @@ class ValidateInput(object):
         except ValueError:
             pass
         try:
-            size=unicodedata.numeric(value)
+            size = unicodedata.numeric(value)
             if size >= 0:
                 result = True
             return result
@@ -197,3 +198,84 @@ class ValidateInput(object):
         else:
             return False
 
+
+    def is_valid_date(self, input_date):
+        """
+        This method is implemented to validate if the date insert by user is a valid date.
+        :param input_date: It is a string and is the date insert by user
+        :return: It returns True if the date insert by user is valid date in otherwise it returns false
+        """
+        date = input_date.split('-')
+        result = False
+        try:
+            month = int(date[0])
+            day = int(date[1])
+            year = int(date[2])
+            if year >= 0 and year <= 9999:
+
+                if month >= 1 and month <= 12:
+
+                    if month == 2:
+                        if day >= 1 and day <= 28:
+                            result = True
+                    else:
+                        if day >= 1 and day <= 31:
+                            result = True
+            return result
+        except ValueError:
+            pass
+
+        return result
+
+
+    def is_date_meets_condition(self, result_date, input_date, operator):
+        """
+        This method is implemented to verify that the date of the file that is found in the response
+        meets the condition of the date that is insert by user.
+        :param result_date: It is a string that is the data of the file that is found in the response
+        :param input_date: It is a  string that is the date that is insert by user
+        :param operator: it is the conditional
+        :return: It returns true if the dated of the file meets the condition in otherwise it returns false
+        """
+        input_date = input_date.split('-')
+        result_date = result_date.split('-')
+        date = input_date[2]
+        if len(input_date[0]) < 2:
+            date = date + '0'+ input_date[0]
+        else:
+            date = date + input_date[0]
+
+        if len(input_date[1]) < 2:
+            date = date + '0' + input_date[1]
+        else:
+            date = date + input_date[1]
+
+        res_date = result_date[2]
+        if len(result_date[0]) < 2:
+            res_date = res_date + '0' + result_date[0]
+
+        else:
+            res_date = res_date + result_date[0]
+
+        if len(result_date[1]) < 2:
+            res_date = res_date + '0' + result_date[1]
+        else:
+            res_date = res_date + result_date[1]
+
+        date = int(date)
+        res_date = int(res_date)
+        result = False
+
+        if operator == str('l'):
+            if res_date <= date:
+                result = True
+
+        if operator == str('g'):
+            if res_date > date:
+                result = True
+
+        if operator == str('e'):
+            if res_date == date:
+                result = True
+
+        return result
