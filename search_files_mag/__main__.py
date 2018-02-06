@@ -45,7 +45,7 @@ if args.search:
         else:
             print("please, enter a valid extension: .* .doc, etc")
             exit()
-        result_ext = search.filter_by_extension(args.extension, results)
+        results = search.filter_by_extension(args.extension, results)
 
     if args.size:
         validator = valid_input.is_valid_size(args.size)
@@ -87,12 +87,13 @@ if args.search:
         else:
             print("Please enter a valid date in the following format 'MM-DD-YYYY' un numeral format")
             exit()
-    else:
-        print("You must to enter three parameters to search by date: -d, -op, -cd")
-        exit()
+    # else:
+    #     print("You must to enter three parameters to search by date: -d, -op, -cd")
+    #     exit()
 
     for item in results:
-        print(item)
+        print(item.get_path())
+        #print(item)
 
 else:
     print("You need to introduce the -s argument to search your files/folders")
