@@ -279,3 +279,20 @@ class ValidateInput(object):
                 result = True
 
         return result
+
+    def is_valid_controldate(self, value):
+        result = False
+        if value in ('c','m', 'a'):
+            result = True
+        return result
+
+    def is_valid_opdate(self, value):
+        result = False
+        if value in ('l', 'g', 'e'):
+            result = True
+        return result
+
+
+
+valid = ValidateInput()
+print(valid.is_valid_date('ggg'))
