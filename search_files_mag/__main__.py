@@ -62,8 +62,8 @@ if args.search:
             exit()
 
     if args.date and args.opdate and args.controldate:
-        validator = True #valid date validation
-        # validator = valid_input.is_valid_date(args.date)
+        #validator = True #valid date validation
+        validator = valid_input.is_valid_date(args.date)
         if validator:
             validator = True #valid_input.is_valid_opdate(args.opdate)
             if validator:
@@ -92,8 +92,12 @@ if args.search:
     #     exit()
 
     for item in results:
-        print(item.get_path())
-        #print(item)
+        if type(item) == tuple:
+            print(item)
+
+        else:
+            print(item.get_path())
+
 
 else:
     print("You need to introduce the -s argument to search your files/folders")
