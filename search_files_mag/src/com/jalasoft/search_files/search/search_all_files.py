@@ -144,12 +144,11 @@ class SearchFiles:
         result_filtered = []
         date_get = self.convert_string_to_date(self.format_date_parameter(date))
         for result in results:
+            path = result.get_path()
             date_last_access = self.convert_string_to_date(result.get_date_last_access())
             if operator == 'e':
                 if date_last_access == date_get:
-                    path = result.get_path()
-                    date_l_a = result.get_date_last_access()
-                    path_date_created = (path, date_l_a)
+                    path_date_created = (path, datetime.strftime(date_last_access, '%m-%d-%Y'))
                     result_filtered.append(path_date_created)
             if operator == 'l':
                 if date_last_access < date_get:
@@ -206,15 +205,14 @@ class SearchFiles:
 
 
 search = SearchFiles()
-result = search.file_all_results('D:\\', 'test', 3)
-t = search.filter_by_date_last_access(result, '01-20-2017', 'e')
+result = search.file_all_results('C:\\test', 'test', 3)
+t = search.filter_by_date_last_access(result, '02-07-2018', 'e')
 for i in t:
     print(i)
 
 # search = SearchFiles()
-# result = search.file_all_results('D:\\', 'test', 3)
+# result = search.file_all_results('C:\\test', 'test', 3)
 # for i in result:
-#     print(type(i.get_date_modified()))
 #     print(i.get_date_modified())
 
 # print(type(search.convert_date('07-31-2013')))
