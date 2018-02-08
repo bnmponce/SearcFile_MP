@@ -205,26 +205,28 @@ class ValidateInput(object):
         :param input_date: It is a string and is the date insert by user
         :return: It returns True if the date insert by user is valid date in otherwise it returns false
         """
-        date = input_date.split('-')
         result = False
-        try:
-            month = int(date[0])
-            day = int(date[1])
-            year = int(date[2])
-            if year >= 0 and year <= 9999:
 
-                if month >= 1 and month <= 12:
+        if input_date[2] == '-' and input_date[5] == '-':
+            date = input_date.split('-')
+            year_len = len(date[2])
+            try:
+                month = int(date[0])
+                day = int(date[1])
+                year = int(date[2])
+                if year >= 0 and year <= 9999 and year_len == 4:
 
-                    if month == 2:
-                        if day >= 1 and day <= 28:
-                            result = True
-                    else:
-                        if day >= 1 and day <= 31:
-                            result = True
-            return result
-        except ValueError:
-            pass
+                    if month >= 1 and month <= 12:
 
+                        if month == 2:
+                            if day >= 1 and day <= 28:
+                                result = True
+                        else:
+                            if day >= 1 and day <= 31:
+                                result = True
+                return result
+            except ValueError:
+                pass
         return result
 
 
@@ -291,3 +293,5 @@ class ValidateInput(object):
         if value in ('l', 'g', 'e'):
             result = True
         return result
+
+
