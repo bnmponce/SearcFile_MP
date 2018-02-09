@@ -92,7 +92,7 @@ if args.search:
     #     exit()
 
     for item in results:
-        if type(item) == tuple:
+        if type(item) == tuple or type(item) == str:
             print(item)
 
         else:
