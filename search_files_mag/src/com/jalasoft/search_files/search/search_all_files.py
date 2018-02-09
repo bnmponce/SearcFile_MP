@@ -1,5 +1,6 @@
 import os
 from datetime import *
+import win32security
 from src.com.jalasoft.search_files.search.file import File
 
 
@@ -31,6 +32,7 @@ class SearchFiles:
                         file_object.set_date_created(os.path.getctime(file_and_path))
                         file_object.set_date_modified(os.path.getmtime(file_and_path))
                         file_object.set_date_last_access(os.path.getatime(file_and_path))
+                        file_object.set_owner(self.get_owner(file_and_path))
                         results.append(file_object)
 
             if type_search == 2 or type_search == 3:
@@ -45,6 +47,7 @@ class SearchFiles:
                         file_object.set_date_created(os.path.getctime(folder_and_path))
                         file_object.set_date_modified(os.path.getmtime(folder_and_path))
                         file_object.set_date_last_access(os.path.getatime(folder_and_path))
+                        file_object.set_owner(self.get_owner(folder_and_path))
                         results.append(file_object)
         return results
 
@@ -150,13 +153,13 @@ class SearchFiles:
                     result_filtered.append(path_date_created)
         return result_filtered
 
-    def print_search_by_date(self, result):
-        new_result = []
-        for res in result:
-            print(res)
-            # date = time.strftime("%m-%d-%Y", res[1])
-            # new_result.append(res[0], date)
-        # return new_result
+    def filter_by_owner(self, results, owner):
+        results_filtered = []
+        for result in results:
+            if owner == result.get_owner():
+                path_and_owner = (result.get_path(), result.get_owner())
+                results_filtered.append(path_and_owner)
+        return results_filtered
 
     def calculate_folder_size(self, path):
         """
@@ -188,11 +191,16 @@ class SearchFiles:
         date = datetime.strptime(date_string, '%m%d%Y')
         return date
 
+    def get_owner(self, file_folder_path):
+        file_and_folder = win32security.GetFileSecurity(file_folder_path, win32security.OWNER_SECURITY_INFORMATION)
+        username = win32security.LookupAccountSid(None, file_and_folder.GetSecurityDescriptorOwner())
+        return username[0]
+
 
 
 search = SearchFiles()
 result = search.file_all_results('D:\\', 'test', 3)
-t = search.filter_by_date_created(result, '11-19-2017', 'e')
+t = search.filter_by_owner(result, 'PC')
 for i in t:
     print(i)
 
