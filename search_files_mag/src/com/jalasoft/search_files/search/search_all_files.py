@@ -1,5 +1,9 @@
 import os
 from datetime import *
+import win32security
+import mmap
+from docx import *
+from xlrd import *
 from src.com.jalasoft.search_files.search.file import File
 
 
@@ -31,6 +35,7 @@ class SearchFiles:
                         file_object.set_date_created(os.path.getctime(file_and_path))
                         file_object.set_date_modified(os.path.getmtime(file_and_path))
                         file_object.set_date_last_access(os.path.getatime(file_and_path))
+                        file_object.set_owner(self.get_owner(file_and_path))
                         results.append(file_object)
 
             if type_search == 2 or type_search == 3:
@@ -45,6 +50,7 @@ class SearchFiles:
                         file_object.set_date_created(os.path.getctime(folder_and_path))
                         file_object.set_date_modified(os.path.getmtime(folder_and_path))
                         file_object.set_date_last_access(os.path.getatime(folder_and_path))
+                        file_object.set_owner(self.get_owner(folder_and_path))
                         results.append(file_object)
         return results
 
@@ -95,23 +101,18 @@ class SearchFiles:
         date_get = self.convert_string_to_date(self.format_date_parameter(date))
         for result in results:
             date_created = self.convert_string_to_date(result.get_date_created())
+            path = result.get_path()
             if operator == 'e':
                 if date_created == date_get:
-                    path = result.get_path()
-                    date_c = result.get_date_created()
-                    path_date_created = (path, date_c)
+                    path_date_created = (path, datetime.strftime(date_created, '%m-%d-%Y'))
                     result_filtered.append(path_date_created)
             if operator == 'l':
                 if date_created < date_get:
-                    path = result.get_path()
-                    date_c = result.get_date_created()
-                    path_date_created = (path, date_c)
+                    path_date_created = (path, datetime.strftime(date_created, '%m-%d-%Y'))
                     result_filtered.append(path_date_created)
             if operator == 'g':
                 if date_created > date_get:
-                    path = result.get_path()
-                    date_c = result.get_date_created()
-                    path_date_created = (path, date_c)
+                    path_date_created = (path, datetime.strftime(date_created, '%m-%d-%Y'))
                     result_filtered.append(path_date_created)
         return result_filtered
 
@@ -120,23 +121,18 @@ class SearchFiles:
         date_get = self.convert_string_to_date(self.format_date_parameter(date))
         for result in results:
             date_modified = self.convert_string_to_date(result.get_date_modified())
+            path = result.get_path()
             if operator == 'e':
                 if date_modified == date_get:
-                    path = result.get_path()
-                    date_m = result.get_date_modified()
-                    path_date_modified = (path, date_m)
+                    path_date_modified = (path, datetime.strftime(date_modified, '%m-%d-%Y'))
                     result_filtered.append(path_date_modified)
             if operator == 'l':
                 if date_modified < date_get:
-                    path = result.get_path()
-                    date_m = result.get_date_modified()
-                    path_date_modified = (path, date_m)
+                    path_date_modified = (path, datetime.strftime(date_modified, '%m-%d-%Y'))
                     result_filtered.append(path_date_modified)
             if operator == 'g':
                 if date_modified > date_get:
-                    path = result.get_path()
-                    date_m = result.get_date_modified()
-                    path_date_modified = (path, date_m)
+                    path_date_modified = (path, datetime.strftime(date_modified, '%m-%d-%Y'))
                     result_filtered.append(path_date_modified)
         return result_filtered
 
@@ -144,34 +140,29 @@ class SearchFiles:
         result_filtered = []
         date_get = self.convert_string_to_date(self.format_date_parameter(date))
         for result in results:
+            path = result.get_path()
             date_last_access = self.convert_string_to_date(result.get_date_last_access())
             if operator == 'e':
                 if date_last_access == date_get:
-                    path = result.get_path()
-                    date_l_a = result.get_date_last_access()
-                    path_date_created = (path, date_l_a)
+                    path_date_created = (path, datetime.strftime(date_last_access, '%m-%d-%Y'))
                     result_filtered.append(path_date_created)
             if operator == 'l':
                 if date_last_access < date_get:
-                    path = result.get_path()
-                    date_l_a = result.get_date_last_access()
-                    path_date_created = (path, date_l_a)
+                    path_date_created = (path, datetime.strftime(date_last_access, '%m-%d-%Y'))
                     result_filtered.append(path_date_created)
             if operator == 'g':
                 if date_last_access > date_get:
-                    path = result.get_path()
-                    date_l_a = result.get_date_last_access()
-                    path_date_created = (path, date_l_a)
+                    path_date_created = (path, datetime.strftime(date_last_access, '%m-%d-%Y'))
                     result_filtered.append(path_date_created)
         return result_filtered
 
-    def print_search_by_date(self, result):
-        new_result = []
-        for res in result:
-            print(res)
-            # date = time.strftime("%m-%d-%Y", res[1])
-            # new_result.append(res[0], date)
-        # return new_result
+    def filter_by_owner(self, results, owner):
+        results_filtered = []
+        for result in results:
+            if owner == result.get_owner():
+                path_and_owner = (result.get_path(), result.get_owner())
+                results_filtered.append(path_and_owner)
+        return results_filtered
 
     def calculate_folder_size(self, path):
         """
@@ -203,18 +194,31 @@ class SearchFiles:
         date = datetime.strptime(date_string, '%m%d%Y')
         return date
 
+    def get_owner(self, file_folder_path):
+        file_and_folder = win32security.GetFileSecurity(file_folder_path, win32security.OWNER_SECURITY_INFORMATION)
+        username = win32security.LookupAccountSid(None, file_and_folder.GetSecurityDescriptorOwner())
+        return username[0]
 
+    def content_seacher(self, results, text):
+        results_filtered = []
+        for result in results:
+            allowed_to_search = {'.doc', '.docx', '.xls', '.txt'}
+            extension = result.get_extension()
+            if extension in allowed_to_search:
+                if extension == '.txt':
+                    with open(result.get_path()) as in_file:
+                        text_on_file = mmap.mmap(in_file.fileno(), 0, access=mmap.ACCESS_READ)
+                        if text_on_file.find(text.encode()) != -1:
+                            results_filtered.append(result.get_path())
+        return results_filtered
 
-# search = SearchFiles()
-# result = search.file_all_results('D:\\', 'test', 3)
-# t = search.filter_by_date_modified(result, '01-01-2017', 'g')
-# for i in t:
-#     print(i)
+search = SearchFiles()
+result = search.file_all_results('D:\\test', 'test', 3)
 
-# search = SearchFiles()
-# result = search.file_all_results('D:\\', 'test', 3)
 # for i in result:
-#     print(type(i.get_date_modified()))
-#     print(i.get_date_modified())
+#     print(i.get_path())
+#
 
-# print(type(search.convert_date('07-31-2013')))
+t = search.content_seacher(result, 'a')
+for i in t:
+    print(i)
