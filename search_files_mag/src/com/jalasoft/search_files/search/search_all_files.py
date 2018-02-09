@@ -1,6 +1,7 @@
 import os
 from datetime import *
 from src.com.jalasoft.search_files.search.file import File
+from src.com.jalasoft.search_files.utils.logging import logger
 
 
 class SearchFiles:
@@ -15,9 +16,11 @@ class SearchFiles:
         1 it search just files, 2 it search just folders and 3 for both files and folders
         :return:
         """
+        logger.info("file_all_results: Enter")
         self.name = name
         results = []
         self.path = path
+        logger.info("file_all_results: Load files and/or directories")
         for root, folders, files in os.walk(path):
             if type_search == 1 or type_search == 3:
                 for file in files:
@@ -46,6 +49,8 @@ class SearchFiles:
                         file_object.set_date_modified(os.path.getmtime(folder_and_path))
                         file_object.set_date_last_access(os.path.getatime(folder_and_path))
                         results.append(file_object)
+
+        logger.info("file_all_results: Exit")
         return results
 
     def filter_by_extension(self, extension, results):
