@@ -205,11 +205,11 @@ class SearchFiles:
 
 
 
-search = SearchFiles()
-result = search.file_all_results('D:\\', 'test', 3)
-t = search.filter_by_date_last_access(result, '01-20-2017', 'e')
-for i in t:
-    print(i)
+# search = SearchFiles()
+# result = search.file_all_results('D:\\', 'test', 3)
+# t = search.filter_by_date_modified(result, '01-01-2017', 'g')
+# for i in t:
+#     print(i)
 
 # search = SearchFiles()
 # result = search.file_all_results('D:\\', 'test', 3)
