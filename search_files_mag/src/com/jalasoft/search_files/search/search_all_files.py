@@ -2,8 +2,6 @@ import os
 from datetime import *
 import win32security
 import mmap
-from docx import *
-from xlrd import *
 from src.com.jalasoft.search_files.search.file import File
 
 
@@ -97,6 +95,13 @@ class SearchFiles:
         return filter_result
 
     def filter_by_date_created(self, results, date, operator):
+        """
+        This method filter the result get from a previous search and create a new result just with the objects that meets the date_created criteria
+        :param results: This is the result of a previous search
+        :param date: Date that need to be filtered it need a operator
+        :param operator: The valid operators are 'e' for equal, 'l' for less and 'g' for greater
+        :return: A new result with the file or folder path and the date created
+        """
         result_filtered = []
         date_get = self.convert_string_to_date(self.format_date_parameter(date))
         for result in results:
@@ -117,6 +122,13 @@ class SearchFiles:
         return result_filtered
 
     def filter_by_date_modified(self, results, date, operator):
+        """
+        This method filter the result get from a previous search and create a new result just with the objects that meets the date_modified criteria
+        :param results: This is the result of a previous search
+        :param date: Date that need to be filtered it need a operator
+        :param operator: The valid operators are 'e' for equal, 'l' for less and 'g' for greater
+        :return: A new result with the file or folder path and the date modified
+        """
         result_filtered = []
         date_get = self.convert_string_to_date(self.format_date_parameter(date))
         for result in results:
@@ -137,6 +149,13 @@ class SearchFiles:
         return result_filtered
 
     def filter_by_date_last_access(self, results, date, operator):
+        """
+        This method filter the result get from a previous search and create a new result just with the objects that meets the last accessed date criteria
+        :param results: This is the result of a previous search
+        :param date: Date that need to be filtered it need a operator
+        :param operator: The valid operators are 'e' for equal, 'l' for less and 'g' for greater
+        :return: A new result with the file or folder path and the last accessed date
+        """
         result_filtered = []
         date_get = self.convert_string_to_date(self.format_date_parameter(date))
         for result in results:
@@ -157,6 +176,12 @@ class SearchFiles:
         return result_filtered
 
     def filter_by_owner(self, results, owner):
+        """
+        This method filter a previous search with owner criteria it returns a new result just with the files and folders that meet the owner criteria
+        :param results: These are results of a previous search that need to be filtered to meet the owner criteria
+        :param owner: This is the owner that need to be filtered
+        :return: A new result just with the folders and paths that belong to owner entered as parameter
+        """
         results_filtered = []
         for result in results:
             if owner == result.get_owner():
@@ -187,19 +212,40 @@ class SearchFiles:
         return extension
 
     def format_date_parameter(self, date):
+        """
+        This method takes the arg send from menu and convert on another string that is used to filter by date methods
+        :param date: String date e.g. '02-09-2018'
+        :return: String date without additional characters e.g. '02092018'
+        """
         date_on_string = date.replace('-', '')
         return date_on_string
 
     def convert_string_to_date(self, date_string):
+        """
+        This method convert a date in string e.g. '02092018' on a date on datetime 02 09 2018
+        :param date_string: Receives a string date '02092018'
+        :return: A datetime date 02 09 2018
+        """
         date = datetime.strptime(date_string, '%m%d%Y')
         return date
 
     def get_owner(self, file_folder_path):
+        """
+        This method receive a file or folder path and return the owner name
+        :param file_folder_path: File or folder path
+        :return: The owner name for the path received
+        """
         file_and_folder = win32security.GetFileSecurity(file_folder_path, win32security.OWNER_SECURITY_INFORMATION)
         username = win32security.LookupAccountSid(None, file_and_folder.GetSecurityDescriptorOwner())
         return username[0]
 
     def content_seacher(self, results, text):
+        """
+        This method search and string on a received file path and return the list of files that contain the text received
+        :param results: A previous search result
+        :param text: Text that need to be searched on the files
+        :return: A list of paths for the files that contains the text entered
+        """
         results_filtered = []
         for result in results:
             allowed_to_search = {'.doc', '.docx', '.xls', '.txt'}
@@ -214,11 +260,6 @@ class SearchFiles:
 
 search = SearchFiles()
 result = search.file_all_results('D:\\test', 'test', 3)
-
-# for i in result:
-#     print(i.get_path())
-#
-
 t = search.content_seacher(result, 'a')
 for i in t:
     print(i)
