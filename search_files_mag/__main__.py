@@ -13,7 +13,6 @@ This is the main class to calls menu, validator ad search classes to perform the
 :param args: args.arguments returns the value given as input.
 """
 if args.search:
-    #print(args.name)
     if args.name:
         validator = valid_input.is_valid_name(args.name)
         if validator:
@@ -35,8 +34,15 @@ if args.search:
         else:
             print("Please, enter a valid type: 1=file, 2=folder, 3=both")
             exit()
+    if args.casesensitive:
+        validator = True  # Add validator for values c or n
+        if validator:
+            menu.set_case_sensitive(args.casesensitive)
+        else:
+            print("Please enter a valid parameter: c=case sensitive or n=non case sensitive")
+            exit()
     print("Searching.....")
-    results = search.file_all_results(args.path, args.name, int(args.type))
+    results = search.file_all_results(args.path, args.name, int(args.type), args.casesensitive)
 
     if args.extension:
         validator = True
@@ -50,7 +56,6 @@ if args.search:
     if args.size:
         validator = valid_input.is_valid_size(args.size)
         if validator:
-            menu.set_size(args.size)
             if args.operator == 'l':
                 results = search.filter_by_size('l', float(args.size), results)
             if args.operator == 'g':
@@ -61,35 +66,69 @@ if args.search:
             print("please enter a valid number as size, negative numbers or characters are not allowed")
             exit()
 
-    if args.date and args.opdate and args.controldate:
-        #validator = True #valid date validation
-        validator = valid_input.is_valid_date(args.date)
-        if validator:
-            validator = True #valid_input.is_valid_opdate(args.opdate)
+    if args.date or args.opdate or args.controldate:
+        if args.date and args.opdate and args.controldate:
+            validator = valid_input.is_valid_date(args.date)
             if validator:
-                validator = True #valid_input.is_valid_controldate(args.controldate)
+                validator = valid_input.is_valid_opdate(args.opdate)
                 if validator:
-                    #menu.set_date(args.date)
-                    if args.controldate == 'c':
-                        results = search.filter_by_date_created(results, args.date, args.opdate)
-                    elif args.controldate == 'm':
-                        results = search.filter_by_date_modified(results, args.date, args.opdate)
-                    elif args.controldate == 'a':
-                        results = search.filter_by_date_last_access(results, args.date, args.opdate)
+                    validator = valid_input.is_valid_controldate(args.controldate)
+                    if validator:
+                        if args.controldate == 'c':
+                            results = search.filter_by_date_created(results, args.date, args.opdate)
+                        elif args.controldate == 'm':
+                            results = search.filter_by_date_modified(results, args.date, args.opdate)
+                        elif args.controldate == 'a':
+                            results = search.filter_by_date_last_access(results, args.date, args.opdate)
+                        else:
+                            print("invalid control date entered")
                     else:
-                        print("invalid control date entered")
+                        print("Please, enter a valid control date parameter: c, m or a")
+                        exit()
                 else:
-                    print("Please, enter a valid control date parameter: c, m or a")
+                    print("Please enter a valid operator date valid: l, g, e")
                     exit()
             else:
-                print("Please enter a valid operator date valid: l, g, e")
+                print("Please enter a valid date in the following format 'MM-DD-YYYY' un numeral format")
                 exit()
         else:
-            print("Please enter a valid date in the following format 'MM-DD-YYYY' un numeral format")
+            print("You must to enter three parameters to search by date: -d, -op, -cd")
             exit()
-    # else:
-    #     print("You must to enter three parameters to search by date: -d, -op, -cd")
-    #     exit()
+
+    if args.owner:
+        validator = True
+        if validator:
+            results = search.filter_by_owner(results, args.owner)
+        else:
+            print("please enter a owner")
+            exit()
+
+    if args.content:
+        validator = True
+        if validator:
+            results = search.content_seacher(results, args.content)
+        else:
+            print("Please enter the content you are looking for")
+            exit()
+
+    if args.namefind:
+        validator = True #Add validator to just receive e
+        if validator:
+            if args.namefind == 'e':
+                results = search.search_exactly_equal(results, args.name)
+        else:
+            print("please enter a valid value 'e' for the argument nf")
+            exit()
+
+    # if args.contentfind:
+    #     validator = True #Add validator to just receive e
+    #     if validator:
+    #         if args.operator == 'e':
+    #             results = search.content_seacher(results, args.content)
+    #     else:
+    #         print("please enter a valid value 'e' for the argument cf/content find")
+    #         exit()
+
 
     for item in results:
         if type(item) == tuple or type(item) == str:
