@@ -10,7 +10,48 @@ class SearchFiles:
     """
     This class should contain all methods for search files
     """
-    def file_all_results(self, path, name, type_search):
+    def set_file_values(self, root, file):
+        """
+        This method set all the file values needed to this project it was implemented to don't duplicate code
+        :param root: the file root path
+        :param file: the file name
+        :return: A file object with all the values entered
+        """
+        file_object = File()
+        file_and_path = os.path.join(root, file)
+        file_object.set_file_folder_name(file)
+        file_object.set_path(file_and_path)
+        file_object.set_size(os.path.getsize(file_and_path))
+        file_object.set_is_file(True)
+        file_object.set_extension(self.extract_extension(file_and_path))
+        file_object.set_date_created(os.path.getctime(file_and_path))
+        file_object.set_date_modified(os.path.getmtime(file_and_path))
+        file_object.set_date_last_access(os.path.getatime(file_and_path))
+        file_object.set_owner(self.get_owner(file_and_path))
+        return file_object
+
+
+    def set_folder_values(self, root, folder):
+        """
+        This method set all the folder values needed to this project
+        :param root: Folder root path
+        :param folder: folder name
+        :return: Return a file object
+        """
+        file_object = File()
+        folder_and_path = os.path.join(root, folder)
+        file_object.set_file_folder_name(folder)
+        file_object.set_path(folder_and_path)
+        file_object.set_size(self.calculate_folder_size(folder_and_path))
+        file_object.set_is_file(False)
+        file_object.set_extension(None)
+        file_object.set_date_created(os.path.getctime(folder_and_path))
+        file_object.set_date_modified(os.path.getmtime(folder_and_path))
+        file_object.set_date_last_access(os.path.getatime(folder_and_path))
+        file_object.set_owner(self.get_owner(folder_and_path))
+        return file_object
+
+    def file_all_results(self, path, name, type_search, case_sensitive):
         """
         This method set all the values needed to handle files
         :param name: file/folder name
@@ -26,33 +67,25 @@ class SearchFiles:
         for root, folders, files in os.walk(path):
             if type_search == 1 or type_search == 3:
                 for file in files:
-                    if name in file.lower():
-                        file_object = File()
-                        file_and_path = os.path.join(root, file)
-                        file_object.set_path(file_and_path)
-                        file_object.set_size(os.path.getsize(file_and_path))
-                        file_object.set_is_file(True)
-                        file_object.set_extension(self.extract_extension(file_and_path))
-                        file_object.set_date_created(os.path.getctime(file_and_path))
-                        file_object.set_date_modified(os.path.getmtime(file_and_path))
-                        file_object.set_date_last_access(os.path.getatime(file_and_path))
-                        file_object.set_owner(self.get_owner(file_and_path))
-                        results.append(file_object)
+                    if case_sensitive == 'c':
+                        if name in file:
+                            file_object = self.set_file_values(root, file)
+                            results.append(file_object)
+                    else:
+                        if name.lower() in file.lower():
+                            file_object = self.set_file_values(root, file)
+                            results.append(file_object)
 
             if type_search == 2 or type_search == 3:
                 for folder in folders:
-                    if name in folder.lower():
-                        file_object = File()
-                        folder_and_path = os.path.join(root, folder)
-                        file_object.set_path(folder_and_path)
-                        file_object.set_size(self.calculate_folder_size(folder_and_path))
-                        file_object.set_is_file(False)
-                        file_object.set_extension(None)
-                        file_object.set_date_created(os.path.getctime(folder_and_path))
-                        file_object.set_date_modified(os.path.getmtime(folder_and_path))
-                        file_object.set_date_last_access(os.path.getatime(folder_and_path))
-                        file_object.set_owner(self.get_owner(folder_and_path))
-                        results.append(file_object)
+                    if case_sensitive == 'c':
+                        if name in folder:
+                            file_object = self.set_folder_values(root, folder)
+                            results.append(file_object)
+                    else:
+                        if name.lower() in folder.lower():
+                            file_object = self.set_folder_values(root, folder)
+                            results.append(file_object)
 
         logger.info("file_all_results: Exit")
         return results
@@ -263,8 +296,19 @@ class SearchFiles:
                             results_filtered.append(result.get_path())
         return results_filtered
 
+    def search_exactly_equal(self, results, name):
+        """
+        This method search for a file or folder name with a name that match exactly with the name entered from command line
+        :param results: A previous search result
+        :param name: the name that should match exactly with the folder o file name
+        :return: a list of files and folders filtered
+        """
+        results_filtered = []
+        for result in results:
+            if result.get_file_folder_name() == name:
+                results_filtered.append(result.get_path())
+        return results_filtered
+
 search = SearchFiles()
-result = search.file_all_results('D:\\test', 'test', 3)
-t = search.content_seacher(result, 'a')
-for i in t:
-    print(i)
+result = search.file_all_results('D:\\', 'test', 3, 'c')
+print(search.search_exactly_equal(result, 'test.docx'))

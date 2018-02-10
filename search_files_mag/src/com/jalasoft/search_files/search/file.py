@@ -4,6 +4,19 @@ class File(object):
     """
     This class allow us to set and get all the file, folder attributes
     """
+    def set_file_folder_name(self, name):
+        """
+        This method set a file or folder name without path
+        :param name: File or Folder name
+        """
+        self.name = name
+
+    def get_file_folder_name(self):
+        """
+        This method get the file or folder name
+        :return: <String> File or folder name
+        """
+        return self.name
 
     def set_path(self, path):
         """
