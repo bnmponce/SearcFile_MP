@@ -309,6 +309,6 @@ class SearchFiles:
                 results_filtered.append(result.get_path())
         return results_filtered
 
-search = SearchFiles()
-result = search.file_all_results('D:\\', 'test', 3, 'c')
-print(search.search_exactly_equal(result, 'test.docx'))
+# search = SearchFiles()
+# result = search.file_all_results('D:\\', 'test', 3, 'c')
+# print(search.search_exactly_equal(result, 'test.docx'))
