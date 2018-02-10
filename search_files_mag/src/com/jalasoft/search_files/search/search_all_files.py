@@ -290,10 +290,14 @@ class SearchFiles:
             extension = result.get_extension()
             if extension in allowed_to_search:
                 if extension == '.txt':
-                    with open(result.get_path()) as in_file:
-                        text_on_file = mmap.mmap(in_file.fileno(), 0, access=mmap.ACCESS_READ)
-                        if text_on_file.find(text.encode()) != -1:
-                            results_filtered.append(result.get_path())
+                    try:
+                        with open(result.get_path()) as in_file:
+                            text_on_file = mmap.mmap(in_file.fileno(), 0, access=mmap.ACCESS_READ)
+                            if text_on_file.find(text.encode()) != -1:
+                                results_filtered.append(result.get_path())
+                    except:
+                        pass
+
         return results_filtered
 
     def search_exactly_equal(self, results, name):
@@ -309,8 +313,8 @@ class SearchFiles:
                 results_filtered.append(result.get_path())
         return results_filtered
 
-# search = SearchFiles()
-# result = search.file_all_results('D:\\', 'test', 3, 'c')
-# t = search.filter_by_size('e', 93.24, result)
-# for i in t:
-#     print(i)
+search = SearchFiles()
+result = search.file_all_results('D:\\', 'test', 3, 'c')
+t = search.content_seacher(result, 'arielzurita')
+for i in t:
+    print(i)
