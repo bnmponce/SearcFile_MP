@@ -37,15 +37,18 @@ class File(object):
         This method set the file and folder size
         :param size:Receives the file or folder size
         """
-        self.size = size
+        size_in_megas = size / 1048576
+        new_size = round(size_in_megas, 2)
+        self.size = new_size
 
     def get_size(self):
         """
         This method help us to get the file and folder size after perform operations to convert bytes on MB
         :return: The file and folder size on MB
         """
-        size_in_megas = self.size / 1048576
-        return round(size_in_megas, 2)
+        # size_in_megas = self.size / 1048576
+        # return round(size_in_megas, 2)
+        return self.size
 
     def set_is_file(self, flag):
         """

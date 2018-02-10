@@ -311,4 +311,6 @@ class SearchFiles:
 
 # search = SearchFiles()
 # result = search.file_all_results('D:\\', 'test', 3, 'c')
-# print(search.search_exactly_equal(result, 'test.docx'))
+# t = search.filter_by_size('e', 93.24, result)
+# for i in t:
+#     print(i)
