@@ -371,10 +371,10 @@ class SearchFiles:
         logger.info("search_exactly_equal: Exit")
         return results_filtered
 
-search = SearchFiles()
-result = search.file_all_results('D:\\test', 'test', 1, 'd')
-r = search.content_searcher(result, 'arielzurita')
-for i in r:
-    print(type(i))
-    print(i.get_path())
-    print(i.get_owner())
+# search = SearchFiles()
+# result = search.file_all_results('D:\\test', 'test', 1, 'e')
+# r = search.filter_by_owner(result, 'PC')
+# for i in r:
+#     print(type(i))
+#     print(i.get_path())
+#     print(i.get_owner())
