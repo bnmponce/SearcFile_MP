@@ -366,15 +366,18 @@ class SearchFiles:
         results_filtered = []
         for result in results:
             logger.info("search_exactly_equal: Searching for a file called %s" % name)
-            if result.get_file_folder_name() == name:
-                results_filtered.append(result.get_path())
+            file_folder_name = result.get_file_folder_name()
+            text = file_folder_name.split('.')
+            if len(text) > 1:
+                file_folder_name = '.'.join(text[0:(len(text) - 1)])
+            if file_folder_name == name:
+                results_filtered.append(result)
         logger.info("search_exactly_equal: Exit")
         return results_filtered
 
 # search = SearchFiles()
-# result = search.file_all_results('D:\\test', 'test', 1, 'e')
-# r = search.filter_by_owner(result, 'PC')
+# result = search.file_all_results('D:\\test', 'test', 3)
+# r = search.search_exactly_equal(result, 'testT')
 # for i in r:
-#     print(type(i))
-#     print(i.get_path())
-#     print(i.get_owner())
+#     print(i)
+
