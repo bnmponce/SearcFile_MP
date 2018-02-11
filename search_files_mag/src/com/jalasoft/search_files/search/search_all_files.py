@@ -71,10 +71,10 @@ class SearchFiles:
         :return:
         """
         logger.info("file_all_results: Enter")
-        logger.info("Searching with file or folder name: Name = %s" % name)
+        logger.info("Searching with file or folder")
         self.name = name
         results = []
-        logger.info("Searching on path: Path = %s" % path)
+        logger.info("Searching on path: Path")
         self.path = path
         logger.info("file_all_results: Load files and/or directories")
         for root, folders, files in os.walk(path):
@@ -121,7 +121,7 @@ class SearchFiles:
         for result in results:
             logger.info("filter_by_extension: Searching with extension %s" % extension)
             if extension in str(result.get_extension()):
-                filter_result.append(result.get_path())
+                filter_result.append(result)
         logger.info("filter_by_extension: Exit")
         return filter_result
 
@@ -140,20 +140,17 @@ class SearchFiles:
             if operator == 'e':
                 logger.info("filter_by_size: Search by size equal to %s" % size_to_filter)
                 if result.get_size() == size_to_filter:
-                    path_and_size = (result.get_path(), result.get_size())
-                    filter_result.append(path_and_size)
+                    filter_result.append(result)
 
             if operator == 'l':
                 logger.info("filter_by_size: Search by size less than %s" % size_to_filter)
                 if result.get_size() < size_to_filter:
-                    path_and_size = (result.get_path(), result.get_size())
-                    filter_result.append(path_and_size)
+                    filter_result.append(result)
 
             if operator == 'g':
                 logger.info("filter_by_size: Search by size greater than %s" % size_to_filter)
                 if result.get_size() > size_to_filter:
-                    path_and_size = (result.get_path(), result.get_size())
-                    filter_result.append(path_and_size)
+                    filter_result.append(result)
         logger.info("filter_by_size: Exit")
         return filter_result
 
@@ -176,20 +173,17 @@ class SearchFiles:
             if operator == 'e':
                 logger.info("filter_by_date_created: Search for files and/or folders created on date equal to %s" % date_get)
                 if date_created == date_get:
-                    path_date_created = (path, datetime.strftime(date_created, '%m-%d-%Y'))
-                    result_filtered.append(path_date_created)
+                    result_filtered.append(result)
             if operator == 'l':
                 logger.info(
                     "filter_by_date_created: Search for files and/or folders created on date less than %s" % date_get)
                 if date_created < date_get:
-                    path_date_created = (path, datetime.strftime(date_created, '%m-%d-%Y'))
-                    result_filtered.append(path_date_created)
+                    result_filtered.append(result)
             if operator == 'g':
                 logger.info(
                     "filter_by_date_created: Search for files and/or folders created on date greater than %s" % date_get)
                 if date_created > date_get:
-                    path_date_created = (path, datetime.strftime(date_created, '%m-%d-%Y'))
-                    result_filtered.append(path_date_created)
+                    result_filtered.append(result)
         logger.info("filter_by_date_created: Exit")
         return result_filtered
 
@@ -207,24 +201,20 @@ class SearchFiles:
         logger.info("filter_by_date_modified: Search by files and/or folders with date modified %s" % date_get)
         for result in results:
             date_modified = self.convert_string_to_date(result.get_date_modified())
-            path = result.get_path()
             if operator == 'e':
                 logger.info("filter_by_date_modified: Search by files and/or folders with date modified equal to %s" % date_get)
                 if date_modified == date_get:
-                    path_date_modified = (path, datetime.strftime(date_modified, '%m-%d-%Y'))
-                    result_filtered.append(path_date_modified)
+                    result_filtered.append(result)
             if operator == 'l':
                 logger.info(
                     "filter_by_date_modified: Search by files and/or folders with date modified less than %s" % date_get)
                 if date_modified < date_get:
-                    path_date_modified = (path, datetime.strftime(date_modified, '%m-%d-%Y'))
-                    result_filtered.append(path_date_modified)
+                    result_filtered.append(result)
             if operator == 'g':
                 logger.info(
                     "filter_by_date_modified: Search by files and/or folders with date modified greater than %s" % date_get)
                 if date_modified > date_get:
-                    path_date_modified = (path, datetime.strftime(date_modified, '%m-%d-%Y'))
-                    result_filtered.append(path_date_modified)
+                    result_filtered.append(result)
         logger.info("filter_by_date_modified: Exit")
         return result_filtered
 
@@ -241,25 +231,21 @@ class SearchFiles:
         date_get = self.convert_string_to_date(self.format_date_parameter(date))
         logger.info("filter_by_date_lass_access: Search for files and/or folders with date %s" % date_get)
         for result in results:
-            path = result.get_path()
             date_last_access = self.convert_string_to_date(result.get_date_last_access())
             if operator == 'e':
                 logger.info("filter_by_date_lass_access: Search for files and/or folders with date equal to %s" % date_get)
                 if date_last_access == date_get:
-                    path_date_created = (path, datetime.strftime(date_last_access, '%m-%d-%Y'))
-                    result_filtered.append(path_date_created)
+                    result_filtered.append(result)
             if operator == 'l':
                 logger.info(
                     "filter_by_date_lass_access: Search for files and/or folders with date less than %s" % date_get)
                 if date_last_access < date_get:
-                    path_date_created = (path, datetime.strftime(date_last_access, '%m-%d-%Y'))
-                    result_filtered.append(path_date_created)
+                    result_filtered.append(result)
             if operator == 'g':
                 logger.info(
                     "filter_by_date_lass_access: Search for files and/or folders with date greater than %s" % date_get)
                 if date_last_access > date_get:
-                    path_date_created = (path, datetime.strftime(date_last_access, '%m-%d-%Y'))
-                    result_filtered.append(path_date_created)
+                    result_filtered.append(result)
         logger.info("filter_by_date_lass_access: Exit")
         return result_filtered
 
@@ -275,8 +261,7 @@ class SearchFiles:
         results_filtered = []
         for result in results:
             if owner == result.get_owner():
-                path_and_owner = (result.get_path(), result.get_owner())
-                results_filtered.append(path_and_owner)
+                results_filtered.append(result)
         logger.info("filter_by_owner: Exit")
         return results_filtered
 
@@ -336,11 +321,14 @@ class SearchFiles:
         :param file_folder_path: File or folder path
         :return: The owner name for the path received
         """
-        logger.info("get_owner: Enter > Getting owner of path %s" %file_folder_path)
-        file_and_folder = win32security.GetFileSecurity(file_folder_path, win32security.OWNER_SECURITY_INFORMATION)
-        username = win32security.LookupAccountSid(None, file_and_folder.GetSecurityDescriptorOwner())
-        logger.info("get_owner: Exit > returning owner %s" % username[0])
-        return username[0]
+        try:
+            logger.info("get_owner: Enter > Getting owner")
+            file_and_folder = win32security.GetFileSecurity(file_folder_path, win32security.OWNER_SECURITY_INFORMATION)
+            username = win32security.LookupAccountSid(None, file_and_folder.GetSecurityDescriptorOwner())
+            logger.info("get_owner: Exit > returning owner")
+            return username[0]
+        except:
+            pass
 
     def content_searcher(self, results, text):
         """
@@ -361,7 +349,7 @@ class SearchFiles:
                         with open(result.get_path()) as in_file:
                             text_on_file = mmap.mmap(in_file.fileno(), 0, access=mmap.ACCESS_READ)
                             if text_on_file.find(text.encode()) != -1:
-                                results_filtered.append(result.get_path())
+                                results_filtered.append(result)
                     except:
                         pass
         logger.info("content_searcher: Exit")
@@ -384,7 +372,9 @@ class SearchFiles:
         return results_filtered
 
 search = SearchFiles()
-result = search.file_all_results('D:\\', 'test', 3, 'c')
-t = search.content_searcher(result, 'arielzurita')
-for i in t:
-    print(i)
+result = search.file_all_results('D:\\test', 'test', 1, 'd')
+r = search.content_searcher(result, 'arielzurita')
+for i in r:
+    print(type(i))
+    print(i.get_path())
+    print(i.get_owner())

@@ -27,7 +27,7 @@ class File(object):
         This method set the file and folder path
         :param path: File or folder path
         """
-        logger.info("set_path: Enter with path = %s" % path)
+        logger.info("set_path: Enter with path")
         self.path = path
 
     def get_path(self):
