@@ -104,19 +104,42 @@ class ValidateInput(object):
     def is_valid_type(self, value):
         """
         This method is to validate the type field
-        :param value: Int
-        :return: This methos return tru if value is in (1, 2, 3) in otherwise is false
+        :param value: String
+        :return: This method return true if value is in (1, 2, 3) in otherwise is false
         """
         if value in ('1', '2', '3'):
             return True
         else:
             return False
 
+    def is_valid_flag_of_sensitivecase(self, value):
+        """
+        This method is to validated if the value insert by user is valid flag.
+        :param value: String
+        :return: This method returns true if value is 'c' or 'n' in otherwise it returns false.
+        """
+        if value in ('c', 'n'):
+            return True
+        else:
+            return False
+
+
+    def is_valid_operator_to_exact_search(self, value):
+        """
+        this method is to veludate if the operator insert by user is valid operator
+        :param value: string
+        :return: This method returns True id the value is 'e' in otherwise ti returns false.
+        """
+        if value == 'e':
+            return True
+        else:
+            return False
+
     def is_type_a_file(self, value):
         """
-        This methos is created to verify that type inset by user is a type for file
-        :param value: int
-        :return:
+        This method is created to verify that type insert by user is a type for file
+        :param value: string
+        :return:This method returns true if the value is 1 in otherwise returns false
         """
         result = False
         if value == '1':
@@ -124,12 +147,22 @@ class ValidateInput(object):
         return result
 
     def is_type_a_folder(self, value):
+        """
+        This method is created to verify that type insert by user is 2
+        :param value: string
+        :return: This method returns true if the value is 2 otherwise returns false
+        """
         result = False
         if value == '2':
             result = True
         return result
 
     def is_type_both_file_folder(self, value):
+        """
+        This method is created to verify that type insert by user is 3
+        :param value: string
+        :return: This method returns true if the value is 3 otherwise returns false
+        """
 
         result = False
         if value == '3':
@@ -293,5 +326,11 @@ class ValidateInput(object):
         if value in ('l', 'g', 'e'):
             result = True
         return result
+
+    def is_valid_owner(self, value):
+        value = value
+        result = False
+        return result
+
 
 
