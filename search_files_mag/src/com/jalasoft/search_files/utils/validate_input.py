@@ -257,7 +257,7 @@ class ValidateInput(object):
         This method is created to compare the extension of the file that was found
         with the extension that was insert by user
         :param path: it is the path of the file that is found
-        :param extension: it is the extansion that is inserted by user
+        :param extension: it is the extension that is inserted by user
         :return: It retruns true inf extension of the file that is found is the same of extension insert by user
         """
         logger.info('Enter to is_file_extension_same_extension_entered_by_user method')
@@ -278,27 +278,28 @@ class ValidateInput(object):
         """
         logger.info('Enter to is_valid_date method')
         result = False
-        if input_date[2] == '-' and input_date[5] == '-':
-            date = input_date.split('-')
-            year_len = len(date[2])
-            try:
-                month = int(date[0])
-                day = int(date[1])
-                year = int(date[2])
-                logger.info('Begins the date validation')
-                if year >= 0 and year <= 9999 and year_len == 4:
+        if input_date is not '':
+            if input_date[2] == '-' and input_date[5] == '-':
+                date = input_date.split('-')
+                year_len = len(date[2])
+                try:
+                    month = int(date[0])
+                    day = int(date[1])
+                    year = int(date[2])
+                    logger.info('Begins the date validation')
+                    if year >= 0 and year <= 9999 and year_len == 4:
 
-                    if month >= 1 and month <= 12:
+                        if month >= 1 and month <= 12:
 
-                        if month == 2:
-                            if day >= 1 and day <= 28:
-                                result = True
-                        else:
-                            if day >= 1 and day <= 31:
-                                result = True
-                return result
-            except ValueError:
-                pass
+                            if month == 2:
+                                if day >= 1 and day <= 28:
+                                    result = True
+                            else:
+                                if day >= 1 and day <= 31:
+                                    result = True
+                    return result
+                except ValueError:
+                    pass
         logger.info('Exiting from is_valid_date method')
         return result
 
@@ -313,49 +314,50 @@ class ValidateInput(object):
         :return: It returns true if the dated of the file meets the condition in otherwise it returns false
         """
         logger.info('Enter is_date_meets_condition method')
-        input_date = input_date.split('-')
-        result_date = result_date.split('-')
-        date = input_date[2]
-        if len(input_date[0]) < 2:
-            date = date + '0'+ input_date[0]
-        else:
-            date = date + input_date[0]
-
-        if len(input_date[1]) < 2:
-            date = date + '0' + input_date[1]
-        else:
-            date = date + input_date[1]
-
-        res_date = result_date[2]
-        if len(result_date[0]) < 2:
-            res_date = res_date + '0' + result_date[0]
-
-        else:
-            res_date = res_date + result_date[0]
-
-        if len(result_date[1]) < 2:
-            res_date = res_date + '0' + result_date[1]
-        else:
-            res_date = res_date + result_date[1]
-
-        logger.info('date was convert to int' + date +'Date Insert by user' + res_date + 'date of the file')
-
-        date = int(date)
-        res_date = int(res_date)
         result = False
+        if self.is_valid_date(result_date) and self.is_valid_date(input_date) and operator in ('l', 'g', 'e'):
+            input_date = input_date.split('-')
+            result_date = result_date.split('-')
+            date = input_date[2]
+            if len(input_date[0]) < 2:
+                date = date + '0'+ input_date[0]
+            else:
+                date = date + input_date[0]
 
-        logger.info('Begins the date validation')
-        if operator == str('l'):
-            if res_date <= date:
-                result = True
+            if len(input_date[1]) < 2:
+                date = date + '0' + input_date[1]
+            else:
+                date = date + input_date[1]
 
-        if operator == str('g'):
-            if res_date > date:
-                result = True
+            res_date = result_date[2]
+            if len(result_date[0]) < 2:
+                res_date = res_date + '0' + result_date[0]
 
-        if operator == str('e'):
-            if res_date == date:
-                result = True
+            else:
+                res_date = res_date + result_date[0]
+
+            if len(result_date[1]) < 2:
+                res_date = res_date + '0' + result_date[1]
+            else:
+                res_date = res_date + result_date[1]
+
+            logger.info('date was convert to int' + date +'Date Insert by user' + res_date + 'date of the file')
+
+            date = int(date)
+            res_date = int(res_date)
+
+            logger.info('Begins the date validation')
+            if operator == str('l'):
+                if res_date <= date:
+                    result = True
+
+            if operator == str('g'):
+                if res_date > date:
+                    result = True
+
+            if operator == str('e'):
+                if res_date == date:
+                    result = True
         logger.info('Exiting from is_date_meets_condition method')
         return result
 

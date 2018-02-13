@@ -100,11 +100,91 @@ class Test_Validat_Input(unittest.TestCase):
         valid = valid_input.is_size_meets_condition((0, 5.5), '%', '_')
         self.assertFalse(valid)
 
-    #Unittest for is_valiz_path
-    #Unittest for is_file_extension_same_extension_enter_by_user
-    #Unittest is_valid_date
-    #Unittest is_date_meets_condition
-    #def
+    #Unittest for is_valiz_path method
+    #Unittest for is_file_extension_same_extension_enter_by_user method
+    def test_extension_of_file_is_different_to_extension_enter_by_user(self):
+        valid_input = ValidateInput()
+        valid = valid_input.is_file_extension_same_extension_entered_by_user('D:\Fundacion\test.docx', '.txt')
+        self.assertFalse(valid)
+
+    def test_file_does_not_have_extension(self):
+        valid_input = ValidateInput()
+        valid = valid_input.is_file_extension_same_extension_entered_by_user('D:\Fundacion\test', '.txt')
+        self.assertFalse(valid)
+
+    #Unittest is_valid_date method
+    def test_invalid_year_is_validate_in_is_valid_date(self):
+        valid_input = ValidateInput()
+        valid = valid_input.is_valid_date('12-31-018')
+        self.assertFalse(valid)
+
+    def test_wilcard_is_validate_in_date(self):
+        valid_input = ValidateInput()
+        valid = valid_input.is_valid_date('12-*--018')
+        self.assertFalse(valid)
+
+    def test_letter_is_validate_in_date(self):
+        valid_input = ValidateInput()
+        valid = valid_input.is_valid_date('mm-31-aaaa')
+        self.assertFalse(valid)
+
+    def test_empty_is_validate_in_is_validate_in_date(self):
+        valid_input = ValidateInput()
+        valid = valid_input.is_valid_date('')
+        self.assertFalse(valid)
+
+    #Unittest is_date_meets_condition method
+    def test_date_of_file_do_not_meet_the_codintion(self):
+        valid_input = ValidateInput()
+        valid = valid_input.is_date_meets_condition('05-31-2017', '06-31-2017', 'g')
+        self.assertFalse(valid)
+
+    def test_wildcard_is_validate_in_is_size_meets_condition_nethod(self):
+        valid_input = ValidateInput()
+        valid = valid_input.is_date_meets_condition('05-3*-2017', '06-31-2017', '&')
+        self.assertFalse(valid)
+
+    def test_empty_is_validate_in_is_size_meets_condition_nethod(self):
+        valid_input = ValidateInput()
+        valid = valid_input.is_date_meets_condition('', '', '')
+        self.assertFalse(valid)
+
+    #Unit test is_valid_controldate method
+    def test_wildcard_is_validated_in_is_valid_controldate(self):
+        valid_input = ValidateInput()
+        valid = valid_input.is_valid_controldate('*')
+        self.assertFalse(valid)
+
+
+    def test_empty_is_validated_in_is_valid_controldate(self):
+        valid_input = ValidateInput()
+        valid = valid_input.is_valid_controldate('')
+        self.assertFalse(valid)
+
+
+    def test_space_is_validated_in_is_valid_controldate(self):
+        valid_input = ValidateInput()
+        valid = valid_input.is_valid_controldate(' ')
+        self.assertFalse(valid)
+
+    #Unittest is_valid_opdate method
+    def test_wildcard_is_validated_in_is_valid_opdate(self):
+        valid_input = ValidateInput()
+        valid = valid_input.is_valid_opdate('*')
+        self.assertFalse(valid)
+
+
+    def test_empty_is_validated_in_is_valid_opdate(self):
+        valid_input = ValidateInput()
+        valid = valid_input.is_valid_opdate('')
+        self.assertFalse(valid)
+
+
+    def test_space_is_validated_in_is_valid_opdate(self):
+        valid_input = ValidateInput()
+        valid = valid_input.is_valid_opdate(' ')
+        self.assertFalse(valid)
+
 
 
 test = Test_Validat_Input()
