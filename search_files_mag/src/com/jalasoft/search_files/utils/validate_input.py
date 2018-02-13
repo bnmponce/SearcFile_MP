@@ -1,5 +1,6 @@
 import os
 import unicodedata
+from src.com.jalasoft.search_files.utils.logging import logger
 
 class ValidateInput(object):
     """
@@ -9,6 +10,7 @@ class ValidateInput(object):
     """
 
     def is_valid_name(self, name):
+        logger.info("is_valid_name: Enter")
 
         """
         is_valid_name method is development to validate the name of any file.
@@ -36,6 +38,7 @@ class ValidateInput(object):
                 result = False
         else:
             result = False
+        logger.info("Exiting from is_valid_name method")
         return result
 
     def has_wilcards(self, name):
@@ -46,6 +49,7 @@ class ValidateInput(object):
         :param name: It is a string to verify it is contains some specific characters
         :return: boolean, True should be returned when at least one of specific characters are in the string.
         """
+        logger.info("Enter to has_wildards method")
         no_allowed_characters = ':/\?*|<>'
         result = False
         counter = 0
@@ -53,6 +57,7 @@ class ValidateInput(object):
             if no_allowed_characters[counter] in name:
                 result = True
             counter = counter + 1
+        logger.info("Exiting from has_wilcards method")
         return result
 
     def is_sent_name_only_with_spaces(self, name):
@@ -61,12 +66,14 @@ class ValidateInput(object):
         :param name: It is a string to verify it contains only spaces
         :return: this attribute returns True if the string sent is only spaces the otherwise it will return false
         """
+        logger.info("Enter to is_sent_name_only_with_spaces method")
         result = True
         counter = 0
         while counter < len(name):
             if name[counter] != ' ':
                 result = False
             counter = counter + 1
+        logger.info("Exiting from is_sent_name_only_with_spaces method")
         return result
 
     def is_name_begins_with_space(self, name):
@@ -75,10 +82,12 @@ class ValidateInput(object):
         :param name: It is a string
         :return: It returns True if name begins in space otherwise returns false
         """
-        if name[0]== ' ':
-            return True
-        else:
-            return False
+        logger.info("Enter to is_name_begins_with_space method")
+        result = False
+        if name[0] == ' ':
+            result = True
+        logger.info("Exiting from is_name_begins_with_space method")
+        return result
 
     def is_name_ends_with_space(self, name):
         """
@@ -86,11 +95,13 @@ class ValidateInput(object):
         :param name: It is a string
         :return: It returns True if name ends in space otherwise returns false
         """
+        logger.info("Enter to is_name_ends_with_space method")
         last_character = name[(len(name)-1)]
+        result = False
         if last_character == ' ':
-            return True
-        else:
-            return False
+            result = True
+        logger.info("Exiting from is_name_ends_with_space method")
+        return result
 
     def is_valid_path(self, path):
         """
@@ -98,8 +109,12 @@ class ValidateInput(object):
         :param path: it is a string
         :return: it returns Tru when the path is a valid path otherwise it returns false
         """
+        logger.info("Enter to is_valid_path method")
         path = path
+
+        logger.info("Exiting from is_valid_path method")
         return os.path.isdir(path)
+
 
     def is_valid_type(self, value):
         """
@@ -107,10 +122,13 @@ class ValidateInput(object):
         :param value: String
         :return: This method return true if value is in (1, 2, 3) in otherwise is false
         """
+        logger.info("Enter to is_valid_type method")
+        result = False
+
         if value in ('1', '2', '3'):
-            return True
-        else:
-            return False
+            result = True
+        logger.info("Exiting from is_valid_type method")
+        return result
 
     def is_valid_flag_of_sensitivecase(self, value):
         """
@@ -118,10 +136,13 @@ class ValidateInput(object):
         :param value: String
         :return: This method returns true if value is 'c' or 'n' in otherwise it returns false.
         """
+        logger.info("Enter to is_valid_flag_of_sensitivecase method")
+        result = False
         if value in ('c', 'n'):
-            return True
-        else:
-            return False
+            result = True
+
+        logger.info("Exiting from is_valid_flag_of_sensitivecase method")
+        return False
 
 
     def is_valid_operator_to_exact_search(self, value):
@@ -130,10 +151,13 @@ class ValidateInput(object):
         :param value: string
         :return: This method returns True id the value is 'e' in otherwise ti returns false.
         """
+
+        logger.info("Enter to is_valid_operator_to_exact_search method")
+        result = False
         if value == 'e':
-            return True
-        else:
-            return False
+            result = True
+        logger.info("Exiting from is_valid_operator_to_exact_search method")
+        return result
 
     def is_type_a_file(self, value):
         """
@@ -141,9 +165,11 @@ class ValidateInput(object):
         :param value: string
         :return:This method returns true if the value is 1 in otherwise returns false
         """
+        logger.info("Enter to is_type_a_file method")
         result = False
         if value == '1':
             result = True
+        logger.info("Exiting from is_type_a_file method")
         return result
 
     def is_type_a_folder(self, value):
@@ -152,9 +178,12 @@ class ValidateInput(object):
         :param value: string
         :return: This method returns true if the value is 2 otherwise returns false
         """
+        logger.info('Enter to is_type_a_folder method')
         result = False
         if value == '2':
             result = True
+
+        logger.info('Exiting from is_type_a_folder method')
         return result
 
     def is_type_both_file_folder(self, value):
@@ -164,9 +193,11 @@ class ValidateInput(object):
         :return: This method returns true if the value is 3 otherwise returns false
         """
 
+        logger.info('Enter to is_type_both_file_folder method')
         result = False
         if value == '3':
             result = True
+        logger.info('Exiting from is_type_a_folder method')
         return result
 
 
@@ -176,6 +207,7 @@ class ValidateInput(object):
         :param value: it is a number
         :return: It should be return true if the the value is a positive number
         """
+        logger.info('Enter to is_valid_size method')
         result = False
         try:
             size = float(value)
@@ -191,6 +223,7 @@ class ValidateInput(object):
             return result
         except(TypeError, ValueError):
             pass
+        logger.info('Exiting from is_valid_size method')
         return result
 
     def is_size_meets_condition(self, file, value_to_compare, operator):
@@ -201,6 +234,7 @@ class ValidateInput(object):
         :param operator: It is a character that is insert by user as condition
         :return: It returns true is the file size meets the conditions otherwise it returns false.
         """
+        logger.info('Enter to is_size_meets_condition method')
         result = False
         size = file[1]
         if self.is_valid_size(size) and self.is_valid_size(value_to_compare) and operator in ('l', 'g', 'e'):
@@ -214,7 +248,7 @@ class ValidateInput(object):
             if operator == str('e'):
                 if size == value:
                     result = True
-
+        logger.info('Exiting from is_size_meets_condition method')
         return result
 
 
@@ -226,12 +260,14 @@ class ValidateInput(object):
         :param extension: it is the extansion that is inserted by user
         :return: It retruns true inf extension of the file that is found is the same of extension insert by user
         """
+        logger.info('Enter to is_file_extension_same_extension_entered_by_user method')
         file = os.path.splitext(path)
         exten = file[1]
+        result = False
         if extension == exten:
-            return True
-        else:
-            return False
+            result = True
+        logger.info('Exiting from is_file_extension_same_extension_entered_by_user method')
+        return result
 
 
     def is_valid_date(self, input_date):
@@ -240,8 +276,8 @@ class ValidateInput(object):
         :param input_date: It is a string and is the date insert by user
         :return: It returns True if the date insert by user is valid date in otherwise it returns false
         """
+        logger.info('Enter to is_valid_date method')
         result = False
-
         if input_date[2] == '-' and input_date[5] == '-':
             date = input_date.split('-')
             year_len = len(date[2])
@@ -249,6 +285,7 @@ class ValidateInput(object):
                 month = int(date[0])
                 day = int(date[1])
                 year = int(date[2])
+                logger.info('Begins the date validation')
                 if year >= 0 and year <= 9999 and year_len == 4:
 
                     if month >= 1 and month <= 12:
@@ -262,6 +299,7 @@ class ValidateInput(object):
                 return result
             except ValueError:
                 pass
+        logger.info('Exiting from is_valid_date method')
         return result
 
 
@@ -274,6 +312,7 @@ class ValidateInput(object):
         :param operator: it is the conditional
         :return: It returns true if the dated of the file meets the condition in otherwise it returns false
         """
+        logger.info('Enter is_date_meets_condition method')
         input_date = input_date.split('-')
         result_date = result_date.split('-')
         date = input_date[2]
@@ -299,10 +338,13 @@ class ValidateInput(object):
         else:
             res_date = res_date + result_date[1]
 
+        logger.info('date was convert to int' + date +'Date Insert by user' + res_date + 'date of the file')
+
         date = int(date)
         res_date = int(res_date)
         result = False
 
+        logger.info('Begins the date validation')
         if operator == str('l'):
             if res_date <= date:
                 result = True
@@ -314,25 +356,29 @@ class ValidateInput(object):
         if operator == str('e'):
             if res_date == date:
                 result = True
-
+        logger.info('Exiting from is_date_meets_condition method')
         return result
 
     def is_valid_controldate(self, value):
+        """
+        This method verify that control date is a valid operator
+        :param value: string
+        :return: It returns true if operator enter by user is in (c, m, a) in otherwise ti returns false
+        """
+        logger.info('Enter to is_valid_controldate method')
         result = False
         if value in ('c','m', 'a'):
             result = True
+        logger.info('Exiting from is_valid_controldate method')
         return result
 
     def is_valid_opdate(self, value):
+        """
+        this method is to verify that value enter var user is a valid operator day
+        :param value: string
+        :return: It returns true if value insert by user is in (l, g, e) in otherwise ti returns false
+        """
         result = False
         if value in ('l', 'g', 'e'):
             result = True
         return result
-
-    def is_valid_owner(self, value):
-        value = value
-        result = False
-        return result
-
-
-
