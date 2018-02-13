@@ -214,11 +214,11 @@ class ValidateInput(object):
             if operator == str('e'):
                 if size == value:
                     result = True
-                    
+
         return result
 
 
-    def is_valid_extention(self, path, extension):
+    def is_file_extension_same_extension_entered_by_user(self, path, extension):
         """
         This method is created to compare the extension of the file that was found
         with the extension that was insert by user
