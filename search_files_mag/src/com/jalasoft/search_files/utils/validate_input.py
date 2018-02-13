@@ -203,16 +203,18 @@ class ValidateInput(object):
         """
         result = False
         size = file[1]
-        value = float(value_to_compare)
-        if operator == str('l'):
-            if size < value:
-                result = True
-        if operator == str('g'):
-            if size > value:
-                result = True
-        if operator == str('e'):
-            if size == value:
-                result = True
+        if self.is_valid_size(size) and self.is_valid_size(value_to_compare) and operator in ('l', 'g', 'e'):
+            value = float(value_to_compare)
+            if operator == str('l'):
+                if size < value:
+                    result = True
+            if operator == str('g'):
+                if size > value:
+                    result = True
+            if operator == str('e'):
+                if size == value:
+                    result = True
+                    
         return result
 
 
