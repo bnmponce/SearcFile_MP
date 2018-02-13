@@ -187,5 +187,5 @@ class Test_Validat_Input(unittest.TestCase):
 
 
 
-test = Test_Validat_Input()
-print(test.test_name_validate_space_at_beging())
+if __name__ == '__main__':
+    unittest.main()
