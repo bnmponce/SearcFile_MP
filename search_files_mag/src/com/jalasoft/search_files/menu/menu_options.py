@@ -54,14 +54,14 @@ class PrintMenu(object):
             '--operator',
             '-o',
             default='l',
-            help='enter the operator to search by specific size:'
+            help='Enter the operator to search by specific size:'
                  ' -l: to search files less than the size specified'
                  ' -g: to search the files greater than the size specified'
                  ' -e: to search the exact match size ',
         )
         parser.add_argument(
             '--extension',
-            '-ex',
+            '-ext',
             help='Configure the file extension to search. It will search all file types by default if none is given',
         )
         parser.add_argument(
@@ -72,18 +72,53 @@ class PrintMenu(object):
         parser.add_argument(
             '--opdate',
             '-od',
-            help='enter the date operator to search by specific date:'
-                 ' -l: to search files less than the date specified'
-                 ' -g: to search the files greater than the date specified'
-                 ' -e: to search the exact match date ',
+            help='Enter the date operator to search by specific date:'
+                 '  l: to search files less than the date specified'
+                 '  g: to search the files greater than the date specified'
+                 '  e: to search the exact match date ',
         )
         parser.add_argument(
             '--controldate',
             '-cd',
-            help='enter the operator to search by control date: created, modified and acceded'
-                 ' -c: to search files created in the specified date'
-                 ' -m: to search files modified in the specified date'
-                 ' -a: to search files acceded in the specified date ',
+            help='Enter the operator to search by control date: created, modified and acceded'
+                 '  c: to search files created in the specified date'
+                 '  m: to search files modified in the specified date'
+                 '  a: to search files acceded in the specified date ',
+        )
+        parser.add_argument(
+            '--casesensitive',
+            '-cs',
+            default='c',
+            help='Enter the argument -cs to specify if your search by name will be case sensitive or not'
+                 'By default it will be case sensitive, other wise use the values:'
+                 '  y: you confirm as yes, you want to search by case sensitive name'
+                 '  n: you confirm as no, you do not want to search by case sensitive name'
+        )
+        parser.add_argument(
+            '--owner',
+            '-ow',
+            help='Enter the owner name to filter the search by owner.',
+        )
+        parser.add_argument(
+            '--content',
+            '-c',
+            help='Enter the operator -c and the content you want to search. It is only supported .txt for the moment'
+                 'It will search all matches with the text introduced. If you want to search an specific text, use:'
+                 '  -f argument followed by e to search the exact match'
+        )
+        parser.add_argument(
+            '--namefind',
+            '-nf',
+            help='Enter the argument find / -f to specify if you want to search by an specific name/text'
+                 'By default the searches are finding all matches that contains the text introduced. Otherwise use:'
+                 '  e: if you want to find an exact name/text'
+        )
+        parser.add_argument(
+            '--contentfind',
+            '-cf',
+            help='Enter the argument find / -f to specify if you want to search by an specific name/text'
+                 'By default the searches are finding all matches that contains the text introduced. Otherwise use:'
+                 '  e: if you want to find an exact name/text'
         )
 
         args = parser.parse_args()
