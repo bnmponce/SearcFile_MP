@@ -10,7 +10,7 @@ class ValidateInput(object):
     """
 
     def is_valid_name(self, name):
-        logger.info("is_valid_name: Enter")
+
 
         """
         is_valid_name method is development to validate the name of any file.
@@ -20,6 +20,7 @@ class ValidateInput(object):
         :return: This method returns a boolean. True will be return if the name is a valid name for a file,
         if not it should be returned false
         """
+        logger.info('Enter to is_valid_name method')
         result = False
 
         if (len(name) > 0) and (len(name) <= 240):
@@ -132,7 +133,7 @@ class ValidateInput(object):
 
     def is_valid_flag_of_sensitivecase(self, value):
         """
-        This method is to validated if the value insert by user is valid flag.
+        This method is to validate if the value insert by user is valid flag.
         :param value: String
         :return: This method returns true if value is 'c' or 'n' in otherwise it returns false.
         """
@@ -147,7 +148,7 @@ class ValidateInput(object):
 
     def is_valid_operator_to_exact_search(self, value):
         """
-        this method is to veludate if the operator insert by user is valid operator
+        this method is to validate if the operator insert by user is valid operator
         :param value: string
         :return: This method returns True id the value is 'e' in otherwise ti returns false.
         """
@@ -258,7 +259,7 @@ class ValidateInput(object):
         with the extension that was insert by user
         :param path: it is the path of the file that is found
         :param extension: it is the extension that is inserted by user
-        :return: It retruns true inf extension of the file that is found is the same of extension insert by user
+        :return: It returns true inf extension of the file that is found is the same of extension insert by user
         """
         logger.info('Enter to is_file_extension_same_extension_entered_by_user method')
         file = os.path.splitext(path)
@@ -380,7 +381,9 @@ class ValidateInput(object):
         :param value: string
         :return: It returns true if value insert by user is in (l, g, e) in otherwise ti returns false
         """
+        logger.info('Enter to is_valid_opdate method')
         result = False
         if value in ('l', 'g', 'e'):
             result = True
+        logger.info('Exiting from is_valid_opdate method')
         return result
