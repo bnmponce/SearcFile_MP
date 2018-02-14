@@ -20,6 +20,11 @@ class Test_Validat_Input(unittest.TestCase):
         valid = valid_input.is_valid_name('Test name test')
         self.assertTrue(valid)
 
+    def test_none_is_validate_allow_spaces_in_the_name(self):
+        valid_input = ValidateInput()
+        valid = valid_input.is_valid_name(None)
+        self.assertFalse(valid)
+
     #Unittest for is_valid_type
     def test_character_is_validated_in_is_valid_type_method(self):
         valid_input = ValidateInput()
@@ -34,6 +39,11 @@ class Test_Validat_Input(unittest.TestCase):
     def test_empty_is_validate_in_is_valid_type(self):
         valid_input = ValidateInput()
         valid = valid_input.is_valid_type('')
+        self.assertFalse(valid)
+
+    def test_none_is_validate_in_is_valid_type(self):
+        valid_input = ValidateInput()
+        valid = valid_input.is_valid_type(None)
         self.assertFalse(valid)
 
     # Unitest for is_valid_flag_of_sensitivecase method
@@ -52,6 +62,11 @@ class Test_Validat_Input(unittest.TestCase):
         valid = valid_input.is_valid_flag_of_sensitivecase('_')
         self.assertFalse(valid)
 
+    def test_none_is_validate_is_valid_flag_of_sensitivecase_method(self):
+        valid_input = ValidateInput()
+        valid = valid_input.is_valid_flag_of_sensitivecase(None)
+        self.assertFalse(valid)
+
     # Unitest for is_valid_operator_to_exact_search method
     def test_wilcard_is_validate_is_valid_operator_to_exact_search(self):
         valid_input = ValidateInput()
@@ -66,6 +81,11 @@ class Test_Validat_Input(unittest.TestCase):
     def test_space_is_validate_is_valid_operator_to_exact_search(self):
         valid_input = ValidateInput()
         valid = valid_input.is_valid_flag_of_sensitivecase(' ')
+        self.assertFalse(valid)
+
+    def test_none_is_validate_is_valid_operator_to_exact_search(self):
+        valid_input = ValidateInput()
+        valid = valid_input.is_valid_flag_of_sensitivecase(None)
         self.assertFalse(valid)
 
     # Unittest for is_valid_size method
@@ -84,6 +104,16 @@ class Test_Validat_Input(unittest.TestCase):
         valid = valid_input.is_valid_size('test')
         self.assertFalse(valid)
 
+    def test_none_is_validate_is_valid_size(self):
+        valid_input = ValidateInput()
+        valid = valid_input.is_valid_size(None)
+        self.assertFalse(valid)
+
+    def test_empty_is_validate_is_valid_size(self):
+        valid_input = ValidateInput()
+        valid = valid_input.is_valid_size('')
+        self.assertFalse(valid)
+
     # Unittest for is_size_meets_conditions method
     def test_size_is_greater_than_conditions_is_size_meets_condition(self):
         valid_input = ValidateInput()
@@ -100,7 +130,13 @@ class Test_Validat_Input(unittest.TestCase):
         valid = valid_input.is_size_meets_condition((0, 5.5), '%', '_')
         self.assertFalse(valid)
 
+    def test_wildcard_value_is_validate_is_size_meets_condition_method(self):
+        valid_input = ValidateInput()
+        valid = valid_input.is_size_meets_condition(None, None, None)
+        self.assertFalse(valid)
+
     #Unittest for is_valiz_path method
+
     #Unittest for is_file_extension_same_extension_enter_by_user method
     def test_extension_of_file_is_different_to_extension_enter_by_user(self):
         valid_input = ValidateInput()
@@ -110,6 +146,11 @@ class Test_Validat_Input(unittest.TestCase):
     def test_file_does_not_have_extension(self):
         valid_input = ValidateInput()
         valid = valid_input.is_file_extension_same_extension_entered_by_user('D:\Fundacion\test', '.txt')
+        self.assertFalse(valid)
+
+    def test_none_is_validate_in_extension(self):
+        valid_input = ValidateInput()
+        valid = valid_input.is_file_extension_same_extension_entered_by_user(None, '.txt')
         self.assertFalse(valid)
 
     #Unittest is_valid_date method
@@ -133,6 +174,11 @@ class Test_Validat_Input(unittest.TestCase):
         valid = valid_input.is_valid_date('')
         self.assertFalse(valid)
 
+    def test_none_is_validate_in_is_validate_in_date(self):
+        valid_input = ValidateInput()
+        valid = valid_input.is_valid_date(None)
+        self.assertFalse(valid)
+
     #Unittest is_date_meets_condition method
     def test_date_of_file_do_not_meet_the_codintion(self):
         valid_input = ValidateInput()
@@ -147,6 +193,11 @@ class Test_Validat_Input(unittest.TestCase):
     def test_empty_is_validate_in_is_size_meets_condition_nethod(self):
         valid_input = ValidateInput()
         valid = valid_input.is_date_meets_condition('', '', '')
+        self.assertFalse(valid)
+
+    def test_none_is_validate_in_is_size_meets_condition_nethod(self):
+        valid_input = ValidateInput()
+        valid = valid_input.is_date_meets_condition(None, None, None)
         self.assertFalse(valid)
 
     #Unit test is_valid_controldate method
@@ -167,6 +218,11 @@ class Test_Validat_Input(unittest.TestCase):
         valid = valid_input.is_valid_controldate(' ')
         self.assertFalse(valid)
 
+    def test_none_is_validated_in_is_valid_controldate(self):
+        valid_input = ValidateInput()
+        valid = valid_input.is_valid_controldate(None)
+        self.assertFalse(valid)
+
     #Unittest is_valid_opdate method
     def test_wildcard_is_validated_in_is_valid_opdate(self):
         valid_input = ValidateInput()
@@ -183,6 +239,11 @@ class Test_Validat_Input(unittest.TestCase):
     def test_space_is_validated_in_is_valid_opdate(self):
         valid_input = ValidateInput()
         valid = valid_input.is_valid_opdate(' ')
+        self.assertFalse(valid)
+
+    def test_none_is_validated_in_is_valid_opdate(self):
+        valid_input = ValidateInput()
+        valid = valid_input.is_valid_opdate(None)
         self.assertFalse(valid)
 
 

@@ -22,13 +22,15 @@ class ValidateInput(object):
         """
         logger.info('Enter to is_valid_name method')
         result = False
-
-        if (len(name) > 0) and (len(name) <= 240):
-            if self.has_wilcards(name) == False:
-                if self.is_sent_name_only_with_spaces(name) == False:
-                    if self.is_name_begins_with_space(name) == False:
-                        if self.is_name_ends_with_space(name) == False:
-                            result = True
+        if name is not None:
+            if (len(name) > 0) and (len(name) <= 240):
+                if self.has_wilcards(name) == False:
+                    if self.is_sent_name_only_with_spaces(name) == False:
+                        if self.is_name_begins_with_space(name) == False:
+                            if self.is_name_ends_with_space(name) == False:
+                                result = True
+                            else:
+                                result = False
                         else:
                             result = False
                     else:
@@ -37,8 +39,6 @@ class ValidateInput(object):
                     result = False
             else:
                 result = False
-        else:
-            result = False
         logger.info("Exiting from is_valid_name method")
         return result
 
@@ -210,20 +210,22 @@ class ValidateInput(object):
         """
         logger.info('Enter to is_valid_size method')
         result = False
-        try:
-            size = float(value)
-            if size >= 0:
-                result = True
-            return result
-        except ValueError:
-            pass
-        try:
-            size = unicodedata.numeric(value)
-            if size >= 0:
-                result = True
-            return result
-        except(TypeError, ValueError):
-            pass
+        if value is not None:
+
+            try:
+                size = float(value)
+                if size >= 0:
+                    result = True
+                return result
+            except ValueError:
+                pass
+            try:
+                size = unicodedata.numeric(value)
+                if size >= 0:
+                    result = True
+                return result
+            except(TypeError, ValueError):
+                pass
         logger.info('Exiting from is_valid_size method')
         return result
 
@@ -237,18 +239,19 @@ class ValidateInput(object):
         """
         logger.info('Enter to is_size_meets_condition method')
         result = False
-        size = file[1]
-        if self.is_valid_size(size) and self.is_valid_size(value_to_compare) and operator in ('l', 'g', 'e'):
-            value = float(value_to_compare)
-            if operator == str('l'):
-                if size < value:
-                    result = True
-            if operator == str('g'):
-                if size > value:
-                    result = True
-            if operator == str('e'):
-                if size == value:
-                    result = True
+        if file is not None:
+            size = file[1]
+            if self.is_valid_size(size) and self.is_valid_size(value_to_compare) and operator in ('l', 'g', 'e'):
+                value = float(value_to_compare)
+                if operator == str('l'):
+                    if size < value:
+                        result = True
+                if operator == str('g'):
+                    if size > value:
+                        result = True
+                if operator == str('e'):
+                    if size == value:
+                        result = True
         logger.info('Exiting from is_size_meets_condition method')
         return result
 
@@ -262,11 +265,14 @@ class ValidateInput(object):
         :return: It returns true inf extension of the file that is found is the same of extension insert by user
         """
         logger.info('Enter to is_file_extension_same_extension_entered_by_user method')
-        file = os.path.splitext(path)
-        exten = file[1]
         result = False
-        if extension == exten:
-            result = True
+        if path is not None and extension is not None:
+
+            file = os.path.splitext(path)
+            exten = file[1]
+
+            if extension == exten:
+                result = True
         logger.info('Exiting from is_file_extension_same_extension_entered_by_user method')
         return result
 
@@ -279,7 +285,7 @@ class ValidateInput(object):
         """
         logger.info('Enter to is_valid_date method')
         result = False
-        if input_date is not '':
+        if input_date is not '' and input_date is not None:
             if input_date[2] == '-' and input_date[5] == '-':
                 date = input_date.split('-')
                 year_len = len(date[2])
