@@ -50,16 +50,6 @@ class Menu:
         type_search = config['CONFIG']['type_search']
         return type_search
 
-    def get_size(self):
-        """
-        This get_size method retrieves the size parameter from settings.ini
-        :param self:
-        :return: It returns the size configured in settings.ini
-        """
-        config = self.read_settings()
-        size = config['CONFIG']['size']
-        return size
-
     def get_extension(self):
         """
         This get_extension method retrieves the file extension parameter from settings.ini
@@ -70,10 +60,15 @@ class Menu:
         extension = config['CONFIG']['extension']
         return extension
 
-    # def get_operator(self):
-    #     config = self.read_settings()
-    #     operator = config['CONFIG']['operator']
-    #     return operator
+    def get_case_sensitive(self):
+        """
+        This get_size method retrieves the size parameter from settings.ini
+        :param self:
+        :return: It returns the size configured in settings.ini
+        """
+        config = self.read_settings()
+        case_sensitive = config['CONFIG']['case_sensitive']
+        return case_sensitive
 
     def get_date(self):
         """
@@ -108,7 +103,6 @@ class Menu:
         with open(self.config_file, 'w') as configfile:
             config.write(configfile)
         self.get_path()
-        # set_name()
 
     def set_type_search(self, type_search):
         config = self.read_settings()
@@ -116,14 +110,6 @@ class Menu:
         with open(self.config_file, 'w') as configfile:
             config.write(configfile)
         self.get_type_search()
-        # set_name()
-
-    def set_size(self, size):
-        config = self.read_settings()
-        config['CONFIG']['size'] = size
-        with open(self.config_file, 'w') as configfile:
-            config.write(configfile)
-        self.get_size()
 
     def set_extension(self, extension):
         config = self.read_settings()
@@ -132,16 +118,16 @@ class Menu:
             config.write(configfile)
         self.get_extension()
 
-    # def set_operator(self, operator):
-    #     config = self.read_settings()
-    #     config['CONFIG']['operator'] = operator
-    #     with open(self.config_file, 'w') as configfile:
-    #         config.write(configfile)
-    #     self.get_operator()
-
     def set_date(self, date):
         config = self.read_settings()
         config['CONFIG']['date'] = date
         with open(self.config_file, 'w') as configfile:
             config.write(configfile)
         self.get_date()
+
+    def set_case_sensitive(self, case_sensitive):
+        config = self.read_settings()
+        config['CONFIG']['case_sensitive'] = case_sensitive
+        with open(self.config_file, 'w') as configfile:
+            config.write(configfile)
+        self.get_case_sensitive()
