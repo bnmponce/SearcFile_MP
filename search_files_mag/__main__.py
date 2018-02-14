@@ -1,12 +1,14 @@
 from src.com.jalasoft.search_files.menu.menu_options import *
 from src.com.jalasoft.search_files.search.search_all_files import *
 from src.com.jalasoft.search_files.utils.validate_input import *
+from prettytable import PrettyTable
 
 menu = Menu()
 valid_input = ValidateInput()
 print_menu = PrintMenu()
 args = print_menu.print_menu()
 search = SearchFiles()
+table = PrettyTable()
 
 """
 This is the main class to calls menu, validator ad search classes to perform the search based on user's inputs.
@@ -35,7 +37,7 @@ if args.search:
             print("Please, enter a valid type: 1=file, 2=folder, 3=both")
             exit()
     if args.casesensitive:
-        validator = True  # Add validator for values c or n
+        validator = valid_input.is_valid_flag_of_sensitivecase(args.casesensitive)
         if validator:
             menu.set_case_sensitive(args.casesensitive)
         else:
@@ -112,7 +114,7 @@ if args.search:
             exit()
 
     if args.namefind:
-        validator = True #Add validator to just receive e
+        validator = valid_input.is_valid_operator_to_exact_search(args.namefind)
         if validator:
             if args.namefind == 'e':
                 results = search.search_exactly_equal(results, args.name)
@@ -120,22 +122,23 @@ if args.search:
             print("please enter a valid value 'e' for the argument nf")
             exit()
 
-    # if args.contentfind:
-    #     validator = True #Add validator to just receive e
-    #     if validator:
-    #         if args.operator == 'e':
-    #             results = search.content_seacher(results, args.content)
-    #     else:
-    #         print("please enter a valid value 'e' for the argument cf/content find")
-    #         exit()
-
+    table.field_names = ["Path", "Is File", "Size", "Owner", "Created Date", "Modified Date", "Accessed Date"]
+    table.align["Path"] = "l"
+    table.align["Is File"] = "r"
+    table.align["Size"] = "r"
+    table.align["Owner"] = "r"
+    table.align["Create Date"] = "r"
+    table.align["Modified Date"] = "r"
+    table.align["Accessed Date"] = "r"
 
     for item in results:
         if type(item) == tuple or type(item) == str:
             print(item)
 
         else:
-            print(item.get_path())
+            table.add_row([item.get_path(), item.get_is_file(), item.get_size(), item.get_owner(), item.get_date_created(),
+                           item.get_date_modified(), item.get_date_last_access()])
+    print(table)
 
 
 else:

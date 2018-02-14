@@ -88,7 +88,7 @@ class PrintMenu(object):
         parser.add_argument(
             '--casesensitive',
             '-cs',
-            default='c',
+            default='n',
             help='Enter the argument -cs to specify if your search by name will be case sensitive or not'
                  'By default it will be case sensitive, other wise use the values:'
                  '  y: you confirm as yes, you want to search by case sensitive name'
