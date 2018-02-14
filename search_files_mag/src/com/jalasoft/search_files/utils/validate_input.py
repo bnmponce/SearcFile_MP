@@ -143,7 +143,7 @@ class ValidateInput(object):
             result = True
 
         logger.info("Exiting from is_valid_flag_of_sensitivecase method")
-        return False
+        return result
 
 
     def is_valid_operator_to_exact_search(self, value):
