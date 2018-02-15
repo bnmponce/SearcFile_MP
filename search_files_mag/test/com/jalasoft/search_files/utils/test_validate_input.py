@@ -224,26 +224,26 @@ class Test_Validat_Input(unittest.TestCase):
         self.assertFalse(valid)
 
     #Unittest is_valid_opdate method
-    def test_wildcard_is_validated_in_is_valid_opdate(self):
+    def test_wildcard_is_validated_in_is_valid_operators(self):
         valid_input = ValidateInput()
-        valid = valid_input.is_valid_opdate('*')
+        valid = valid_input.is_valid_operators('*')
         self.assertFalse(valid)
 
 
     def test_empty_is_validated_in_is_valid_opdate(self):
         valid_input = ValidateInput()
-        valid = valid_input.is_valid_opdate('')
+        valid = valid_input.is_valid_operators('')
         self.assertFalse(valid)
 
 
     def test_space_is_validated_in_is_valid_opdate(self):
         valid_input = ValidateInput()
-        valid = valid_input.is_valid_opdate(' ')
+        valid = valid_input.is_valid_operators(' ')
         self.assertFalse(valid)
 
     def test_none_is_validated_in_is_valid_opdate(self):
         valid_input = ValidateInput()
-        valid = valid_input.is_valid_opdate(None)
+        valid = valid_input.is_valid_operators(None)
         self.assertFalse(valid)
 
 
