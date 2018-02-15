@@ -15,6 +15,7 @@ class PrintMenu(object):
         :param self:
         :return: The arguments
         """
+        logger.info('Enter to print_menu method to determine arguments available')
         menu_options = Menu()
         parser = argparse.ArgumentParser(
             description = 'DEV FUNDAMENTALS II - SEARCH FILES AND FOLDERS.',
@@ -122,4 +123,5 @@ class PrintMenu(object):
         )
 
         args = parser.parse_args()
+        logger.info('Arguments defined. Exit from print_menu method')
         return args
