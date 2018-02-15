@@ -15,6 +15,7 @@ This is the main class to calls menu, validator ad search classes to perform the
 :param args: args.arguments returns the value given as input.
 """
 if args.search:
+    logger.info('Starting search by -s argument...')
     if args.name:
         validator = valid_input.is_valid_name(args.name)
         if validator:
@@ -47,23 +48,22 @@ if args.search:
     results = search.file_all_results(args.path, args.name, int(args.type), args.casesensitive)
 
     if args.extension:
-        validator = True
-        if validator:
-            menu.set_extension(args.extension)
-        else:
-            print("please, enter a valid extension: .* .doc, etc")
-            exit()
         results = search.filter_by_extension(args.extension, results)
 
     if args.size:
         validator = valid_input.is_valid_size(args.size)
         if validator:
-            if args.operator == 'l':
-                results = search.filter_by_size('l', float(args.size), results)
-            if args.operator == 'g':
-                results = search.filter_by_size('g', float(args.size), results)
-            if args.operator == 'e':
-                results = search.filter_by_size('e', float(args.size), results)
+            operator = valid_input.is_valid_opdate(args.operator)
+            if operator:
+                if args.operator == 'l':
+                    results = search.filter_by_size('l', float(args.size), results)
+                if args.operator == 'g':
+                    results = search.filter_by_size('g', float(args.size), results)
+                if args.operator == 'e':
+                    results = search.filter_by_size('e', float(args.size), results)
+            else:
+                print("Please enter a valid operator: l = less than, g= greater than or e = equal")
+                exit()
         else:
             print("please enter a valid number as size, negative numbers or characters are not allowed")
             exit()
@@ -88,7 +88,7 @@ if args.search:
                         print("Please, enter a valid control date parameter: c, m or a")
                         exit()
                 else:
-                    print("Please enter a valid operator date valid: l, g, e")
+                    print("Please enter a valid operator date: l = less than, g= greater than or e = equal")
                     exit()
             else:
                 print("Please enter a valid date in the following format 'MM-DD-YYYY' un numeral format")
@@ -108,7 +108,7 @@ if args.search:
     if args.content:
         validator = True
         if validator:
-            results = search.content_seacher(results, args.content)
+            results = search.content_searcher(results, args.content)
         else:
             print("Please enter the content you are looking for")
             exit()
@@ -122,9 +122,9 @@ if args.search:
             print("please enter a valid value 'e' for the argument nf")
             exit()
 
-    table.field_names = ["Path", "Is File", "Size", "Owner", "Created Date", "Modified Date", "Accessed Date"]
+    table.field_names = ["Path", "Type", "Size", "Owner", "Created Date", "Modified Date", "Accessed Date"]
     table.align["Path"] = "l"
-    table.align["Is File"] = "r"
+    table.align["Type"] = "r"
     table.align["Size"] = "r"
     table.align["Owner"] = "r"
     table.align["Create Date"] = "r"
@@ -132,13 +132,20 @@ if args.search:
     table.align["Accessed Date"] = "r"
 
     for item in results:
-        if type(item) == tuple or type(item) == str:
-            print(item)
-
+        if item.get_is_file():
+            return_type = 'File'
         else:
-            table.add_row([item.get_path(), item.get_is_file(), item.get_size(), item.get_owner(), item.get_date_created(),
-                           item.get_date_modified(), item.get_date_last_access()])
+            return_type = 'Folder'
+
+        table.add_row([item.get_path(),
+                       return_type,
+                       item.get_size(),
+                       item.get_owner(),
+                       item.get_date_created(),
+                       item.get_date_modified(),
+                       item.get_date_last_access()])
     print(table)
+    logger.info('Search completed...')
 
 
 else:
