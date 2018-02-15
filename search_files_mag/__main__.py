@@ -53,7 +53,7 @@ if args.search:
     if args.size:
         validator = valid_input.is_valid_size(args.size)
         if validator:
-            operator = valid_input.is_valid_opdate(args.operator)
+            operator = valid_input.is_valid_operators(args.operator)
             if operator:
                 if args.operator == 'l':
                     results = search.filter_by_size('l', float(args.size), results)
@@ -72,7 +72,7 @@ if args.search:
         if args.date and args.opdate and args.controldate:
             validator = valid_input.is_valid_date(args.date)
             if validator:
-                validator = valid_input.is_valid_opdate(args.opdate)
+                validator = valid_input.is_valid_operators(args.opdate)
                 if validator:
                     validator = valid_input.is_valid_controldate(args.controldate)
                     if validator:

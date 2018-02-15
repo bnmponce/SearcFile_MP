@@ -147,48 +147,6 @@ class ValidateInput(object):
         logger.info("Exiting from is_valid_operator_to_exact_search method")
         return result
 
-    def is_type_a_file(self, value):
-        """
-        This method is created to verify that type insert by user is a type for file
-        :param value: string
-        :return:This method returns true if the value is 1 in otherwise returns false
-        """
-        logger.info("Enter to is_type_a_file method")
-        result = False
-        if value == '1':
-            result = True
-        logger.info("Exiting from is_type_a_file method")
-        return result
-
-    def is_type_a_folder(self, value):
-        """
-        This method is created to verify that type insert by user is 2
-        :param value: string
-        :return: This method returns true if the value is 2 otherwise returns false
-        """
-        logger.info('Enter to is_type_a_folder method')
-        result = False
-        if value == '2':
-            result = True
-
-        logger.info('Exiting from is_type_a_folder method')
-        return result
-
-    def is_type_both_file_folder(self, value):
-        """
-        This method is created to verify that type insert by user is 3
-        :param value: string
-        :return: This method returns true if the value is 3 otherwise returns false
-        """
-
-        logger.info('Enter to is_type_both_file_folder method')
-        result = False
-        if value == '3':
-            result = True
-        logger.info('Exiting from is_type_a_folder method')
-        return result
-
-
     def is_valid_size(self, value):
         """
         This method is to verify if the size is a valid size
@@ -368,15 +326,15 @@ class ValidateInput(object):
         logger.info('Exiting from is_valid_controldate method')
         return result
 
-    def is_valid_opdate(self, value):
+    def is_valid_operators(self, value):
         """
         this method is to verify that value enter var user is a valid operator day
         :param value: string
         :return: It returns true if value insert by user is in (l, g, e) in otherwise ti returns false
         """
-        logger.info('Enter to is_valid_opdate method')
+        logger.info('Enter to is_valid_operators method')
         result = False
         if value in ('l', 'g', 'e'):
             result = True
-        logger.info('Exiting from is_valid_opdate method')
+        logger.info('Exiting from is_valid_operators method')
         return result
