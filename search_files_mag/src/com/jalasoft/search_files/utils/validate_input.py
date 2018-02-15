@@ -10,8 +10,6 @@ class ValidateInput(object):
     """
 
     def is_valid_name(self, name):
-
-
         """
         is_valid_name method is development to validate the name of any file.
 
@@ -24,10 +22,10 @@ class ValidateInput(object):
         result = False
         if name is not None:
             if (len(name) > 0) and (len(name) <= 240):
-                if self.has_wilcards(name) == False:
-                    if self.is_sent_name_only_with_spaces(name) == False:
-                        if self.is_name_begins_with_space(name) == False:
-                            if self.is_name_ends_with_space(name) == False:
+                if self._has_wilcards(name) == False:
+                    if self._is_sent_name_only_with_spaces(name) == False:
+                        if self._is_name_begins_with_space(name) == False:
+                            if self._is_name_ends_with_space(name) == False:
                                 result = True
                             else:
                                 result = False
@@ -42,7 +40,7 @@ class ValidateInput(object):
         logger.info("Exiting from is_valid_name method")
         return result
 
-    def has_wilcards(self, name):
+    def _has_wilcards(self, name):
 
         """
         has_wilcards method is implemented to verify that some specific
@@ -61,7 +59,7 @@ class ValidateInput(object):
         logger.info("Exiting from has_wilcards method")
         return result
 
-    def is_sent_name_only_with_spaces(self, name):
+    def _is_sent_name_only_with_spaces(self, name):
         """
         is_sent_name_only_with_spaces this method verify if name contains only spaces
         :param name: It is a string to verify it contains only spaces
@@ -77,7 +75,7 @@ class ValidateInput(object):
         logger.info("Exiting from is_sent_name_only_with_spaces method")
         return result
 
-    def is_name_begins_with_space(self, name):
+    def _is_name_begins_with_space(self, name):
         """
         This method verify if name begins with a space
         :param name: It is a string
@@ -90,7 +88,7 @@ class ValidateInput(object):
         logger.info("Exiting from is_name_begins_with_space method")
         return result
 
-    def is_name_ends_with_space(self, name):
+    def _is_name_ends_with_space(self, name):
         """
         This method verify if name ends with a space
         :param name: It is a string

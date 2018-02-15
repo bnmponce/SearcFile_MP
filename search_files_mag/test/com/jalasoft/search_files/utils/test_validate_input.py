@@ -130,7 +130,7 @@ class Test_Validat_Input(unittest.TestCase):
         valid = valid_input.is_size_meets_condition((0, 5.5), '%', '_')
         self.assertFalse(valid)
 
-    def test_wildcard_value_is_validate_is_size_meets_condition_method(self):
+    def test_none_is_validate_is_size_meets_condition_method(self):
         valid_input = ValidateInput()
         valid = valid_input.is_size_meets_condition(None, None, None)
         self.assertFalse(valid)
