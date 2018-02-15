@@ -22,21 +22,10 @@ class ValidateInput(object):
         result = False
         if name is not None:
             if (len(name) > 0) and (len(name) <= 240):
-                if self._has_wilcards(name) == False:
-                    if self._is_sent_name_only_with_spaces(name) == False:
-                        if self._is_name_begins_with_space(name) == False:
-                            if self._is_name_ends_with_space(name) == False:
-                                result = True
-                            else:
-                                result = False
-                        else:
-                            result = False
-                    else:
-                        result = False
-                else:
-                    result = False
-            else:
-                result = False
+                if self._has_wilcards(name) == False and self._is_sent_name_only_with_spaces(name) == False and \
+                        self._is_name_begins_with_space(name) == False and self._is_name_ends_with_space(name) == False:
+                    result = True
+
         logger.info("Exiting from is_valid_name method")
         return result
 
