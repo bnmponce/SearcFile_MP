@@ -6,6 +6,7 @@ class TestSearchAllFiles(unittest.TestCase):
 
     def setUp(self):
         self.search = SearchFiles()
+        self.username = 'PC'
         self.today_date = datetime.strftime(datetime.now(), '%m%d%Y')
         self.path = "C:\\test_search\\"
         self.path2 = "C:\\test_search\\test"
@@ -187,11 +188,11 @@ class TestSearchAllFiles(unittest.TestCase):
         for your machine
         """
         result1 = self.search.file_all_results(self.path, 'test', 3)
-        result2 = self.search.filter_by_owner(result1, 'PC')
+        result2 = self.search.filter_by_owner(result1, self.username)
         self.assertIsNotNone(result2)
         self.assertEqual(len(result2), 2)
-        self.assertEqual(result2[0].get_owner(), 'PC')
-        self.assertEqual(result2[1].get_owner(), 'PC')
+        self.assertEqual(result2[0].get_owner(), self.username)
+        self.assertEqual(result2[1].get_owner(), self.username)
 
     def test_calculate_folder_size(self):
         result = self.search.calculate_folder_size(self.path)
@@ -215,7 +216,7 @@ class TestSearchAllFiles(unittest.TestCase):
         for your machine
         """
         result = self.search.get_owner(self.file_path)
-        self.assertEqual(result, 'PC')
+        self.assertEqual(result, self.username)
 
     def test_search_exactly_equal(self):
         result1 = self.search.file_all_results(self.path, 'ARIEL', 3)

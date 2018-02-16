@@ -2,11 +2,14 @@ import unittest
 import os
 from datetime import datetime
 from src.com.jalasoft.search_files.search.search_all_files import *
+from src.com.jalasoft.search_files.utils.search_utils import SearchUtil
+
 
 class Test_file(unittest.TestCase):
 
     def setUp(self):
         self.file = File()
+        self.search_util = SearchUtil()
         self.path = "C:\\test_search\\"
         self.file_name = "test.txt"
         self.file_path = os.path.join(self.path, self.file_name)
@@ -83,7 +86,7 @@ class Test_file(unittest.TestCase):
         self.assertEqual('Administrator', owner)
 
     def test_convert_date_tool(self):
-        date = self.file.convert_date(datetime.now().timestamp())
+        date = self.search_util.convert_date(datetime.now().timestamp())
         date2 = datetime.strftime(datetime.now(), '%m%d%Y')
         self.assertEqual(date, date2)
 

@@ -1,11 +1,14 @@
 from datetime import datetime
 from src.com.jalasoft.search_files.utils.logging import logger
+from src.com.jalasoft.search_files.utils.search_utils import SearchUtil
+
 
 class File(object):
     """
     This class allow us to set and get all the file, folder attributes
     """
     logger.info("File: Enter")
+    search_util = SearchUtil()
     def set_file_folder_name(self, name):
         """
         This method set a file or folder name without path
@@ -96,7 +99,7 @@ class File(object):
         :param date_created: The date when the folder or file were created
         """
         logger.info("set_date_created: Enter with date = %s" % date_created)
-        self.date_created = self.convert_date(date_created)
+        self.date_created = self.search_util.convert_date(date_created)
 
     def get_date_created(self):
         """
@@ -112,7 +115,7 @@ class File(object):
         :param date_modified: Date when a file or folder were modified
         """
         logger.info("set_date_modified: Enter with date modified = %s" % date_modified)
-        self.date_modified = self.convert_date(date_modified)
+        self.date_modified = self.search_util.convert_date(date_modified)
 
     def get_date_modified(self):
         """
@@ -128,7 +131,7 @@ class File(object):
         :param date_accessed: Date of last access to file or folder
         """
         logger.info("set_date_last_access: Enter with date last accessed = %s" % date_accessed)
-        self.date_accessed = self.convert_date(date_accessed)
+        self.date_accessed = self.search_util.convert_date(date_accessed)
 
     def get_date_last_access(self):
         """
@@ -154,14 +157,3 @@ class File(object):
         logger.info("get_owner: Enter")
         return self.owner
 
-    def convert_date(self, date_in_float):
-        """
-        This method convert a date in float a string "%d-%b-%Y"; %d = day, %b = month and %Y = year
-        :param date_in_float: date in float
-        :return: return a date in string
-        """
-        logger.info("convert_date: Enter with date to convert %s" % date_in_float)
-        time_in_date = datetime.fromtimestamp(date_in_float)
-        date = datetime.strftime(time_in_date, '%m%d%Y')
-        logger.info("convert_date: Exit > Returning date %s" % date)
-        return date
