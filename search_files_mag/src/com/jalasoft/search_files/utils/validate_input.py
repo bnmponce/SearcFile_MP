@@ -98,10 +98,12 @@ class ValidateInput(object):
         :return: it returns Tru when the path is a valid path otherwise it returns false
         """
         logger.info("Enter to is_valid_path method")
+        result = False
         path = path
-
+        if type(path) is str:
+            result = os.path.isdir(path)
         logger.info("Exiting from is_valid_path method")
-        return os.path.isdir(path)
+        return result
 
 
     def is_valid_type(self, value):

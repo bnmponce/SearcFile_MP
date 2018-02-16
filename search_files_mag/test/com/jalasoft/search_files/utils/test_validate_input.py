@@ -1,5 +1,7 @@
+import os
 import unittest
 from src.com.jalasoft.search_files.utils.validate_input import *
+
 
 class Test_Validat_Input(unittest.TestCase):
 
@@ -136,6 +138,24 @@ class Test_Validat_Input(unittest.TestCase):
         self.assertFalse(valid)
 
     #Unittest for is_valiz_path method
+    def test_is_valida_path(self):
+        valid_input= ValidateInput()
+        file_path = os.path.abspath(__file__)
+        path = os.path.split(file_path)
+        valid = valid_input.is_valid_path(path[0])
+        self.assertTrue(valid)
+
+    def test_none_is_validated_in_is_valida_path(self):
+        valid_input= ValidateInput()
+        valid = valid_input.is_valid_path(None)
+        self.assertFalse(valid)
+
+    def test_tuple_is_validated_in_is_valida_path(self):
+        valid_input= ValidateInput()
+        file_path = os.path.abspath(__file__)
+        path = os.path.split(file_path)
+        valid = valid_input.is_valid_path(path)
+        self.assertFalse(valid)
 
     #Unittest for is_file_extension_same_extension_enter_by_user method
     def test_extension_of_file_is_different_to_extension_enter_by_user(self):
