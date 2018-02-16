@@ -9,6 +9,8 @@ class File(object):
     """
     logger.info("File: Enter")
     search_util = SearchUtil()
+
+
     def set_file_folder_name(self, name):
         """
         This method set a file or folder name without path
@@ -156,4 +158,3 @@ class File(object):
         """
         logger.info("get_owner: Enter")
         return self.owner
-

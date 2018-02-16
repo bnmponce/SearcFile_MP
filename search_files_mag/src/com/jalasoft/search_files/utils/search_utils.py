@@ -1,8 +1,9 @@
 from datetime import datetime
-
 from src.com.jalasoft.search_files.utils.logging import logger
 
+
 class SearchUtil():
+
 
     def convert_date(self, date_in_float):
         """
@@ -15,3 +16,4 @@ class SearchUtil():
         date = datetime.strftime(time_in_date, '%m%d%Y')
         logger.info("convert_date: Exit > Returning date %s" % date)
         return date
+

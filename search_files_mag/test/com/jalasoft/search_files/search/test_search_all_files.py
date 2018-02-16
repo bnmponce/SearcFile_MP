@@ -2,11 +2,14 @@ import unittest
 from datetime import datetime
 from src.com.jalasoft.search_files.search.search_all_files import *
 from src.com.jalasoft.search_files.search.file import *
+
+
 class TestSearchAllFiles(unittest.TestCase):
+
 
     def setUp(self):
         self.search = SearchFiles()
-        self.username = 'PC'
+        self.username = 'Ariel Zurita'
         self.today_date = datetime.strftime(datetime.now(), '%m%d%Y')
         self.path = "C:\\test_search\\"
         self.path2 = "C:\\test_search\\test"
@@ -224,5 +227,5 @@ class TestSearchAllFiles(unittest.TestCase):
         self.assertIsNotNone(result2)
         self.assertEqual(result2[0].get_file_folder_name(), 'ARIEL.txt')
 
-    if __name__ == '__main__':
-        unittest.main()
+if __name__ == '__main__':
+    unittest.main()

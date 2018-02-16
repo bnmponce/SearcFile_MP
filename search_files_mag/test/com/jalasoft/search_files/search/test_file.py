@@ -7,6 +7,7 @@ from src.com.jalasoft.search_files.utils.search_utils import SearchUtil
 
 class Test_file(unittest.TestCase):
 
+
     def setUp(self):
         self.file = File()
         self.search_util = SearchUtil()
@@ -89,7 +90,6 @@ class Test_file(unittest.TestCase):
         date = self.search_util.convert_date(datetime.now().timestamp())
         date2 = datetime.strftime(datetime.now(), '%m%d%Y')
         self.assertEqual(date, date2)
-
 
 if __name__ == '__main__':
     unittest.main()
