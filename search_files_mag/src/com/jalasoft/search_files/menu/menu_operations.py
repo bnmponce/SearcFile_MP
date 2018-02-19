@@ -1,8 +1,9 @@
-from src.com.jalasoft.search_files.utils.logging import logger
 from src.com.jalasoft.search_files.menu.menu_options import *
 from src.com.jalasoft.search_files.search.search_all_files import *
 from src.com.jalasoft.search_files.utils.validate_input import *
+from src.com.jalasoft.search_files.utils.logging import logger
 from prettytable import PrettyTable
+
 
 class MenuOperations(object):
     """
@@ -15,7 +16,7 @@ class MenuOperations(object):
         This is the constructor to initialize new objects required to handle the parameters operations
         :param self:
         """
-        logger.info ('Constructor initialized...')
+        logger.info('Constructor initialized...')
         self.menu = Menu()
         self.valid_input = ValidateInput()
         self.print_menu = PrintMenu()
@@ -30,11 +31,11 @@ class MenuOperations(object):
         :param name: This attribute is the name of the file or folder
         :return: This method returns a boolean. True if this is a valid name, otherwise it will return false.
         """
-        logger.info ('Enter to name_operation method')
+        logger.info('Enter to name_operation method')
         validator = self.valid_input.is_valid_name(name)
         if validator:
             self.menu.set_name(name)
-            logger.info ('Filter by name completed')
+            logger.info('Filter by name completed')
             return True
         else:
             print("Please, enter a valid name, the following characters are not valid: :/\?*|<> ")
@@ -46,11 +47,11 @@ class MenuOperations(object):
         :param path: This attribute is the path where the search will be performed
         :return: This method returns a boolean. True if this is a valid path, otherwise it will return false.
         """
-        logger.info ('Enter to path_operation method')
+        logger.info('Enter to path_operation method')
         validator = self.valid_input.is_valid_path(path)
         if validator:
             self.menu.set_path(path)
-            logger.info ('Filter by path completed')
+            logger.info('Filter by path completed')
             return True
         else:
             print("The path you enter does not exist. Please enter a valid path")
@@ -63,11 +64,11 @@ class MenuOperations(object):
         :return: This method returns a boolean. True if is given a valid type (1=file, 2=folder or 3=both). Otherwise
         it will return false.
         """
-        logger.info ('Enter to type_operation method')
+        logger.info('Enter to type_operation method')
         validator = self.valid_input.is_valid_type(type)
         if validator:
             self.menu.set_type_search(type)
-            logger.info ('Filter by type file/folder completed')
+            logger.info('Filter by type file/folder completed')
             return True
         else:
             print("Please, enter a valid type: 1=file, 2=folder, 3=both")
@@ -80,11 +81,11 @@ class MenuOperations(object):
         :return: This method returns a boolean. True if is given a valid value (c=case sensitive or n=non case sensitive).
         Otherwise it will return false.
         """
-        logger.info ('Enter to case_sensitive_operation method')
+        logger.info('Enter to case_sensitive_operation method')
         validator = self.valid_input.is_valid_flag_of_sensitivecase(case_sensitive)
         if validator:
             self.menu.set_case_sensitive(case_sensitive)
-            logger.info ('Filter by case sensitive completed')
+            logger.info('Filter by case sensitive completed')
             return True
         else:
             print("Please enter a valid parameter: c=case sensitive or n=non case sensitive")
@@ -97,9 +98,8 @@ class MenuOperations(object):
         :param results: This contains the previous result in order to filter by extension
         :return: This method return a list of objects filtered by the extension given.
         """
-        logger.info ('Enter to extension_filter method')
+        logger.info('Enter to extension_filter method')
         return self.search.filter_by_extension(extension, results)
-        logger.info ('Filter by extension completed')
 
     def size_filter(self, size, operator, results):
         """
@@ -109,12 +109,12 @@ class MenuOperations(object):
         :param results: This contains the previous result in order to filter by size and operator given
         :return: This method returns a list of objects filtered by size and operator
         """
-        logger.info ('Enter to size_filter method')
+        logger.info('Enter to size_filter method')
         validator = self.valid_input.is_valid_size(size)
         if validator:
             valid_operator = self.valid_input.is_valid_operators(operator)
             if valid_operator:
-                logger.info ('Filter by size completed')
+                logger.info('Filter by size completed')
                 if operator == 'l':
                     return self.search.filter_by_size('l', float(size), results)
                 if operator == 'g':
@@ -137,7 +137,7 @@ class MenuOperations(object):
         :param results:  This contains the previous result in order to filter by date, operator date and control date given
         :return: This method return a list of objects filtered by: date_created, date_modified and date_las_access
         """
-        logger.info ('Enter to date_filter method')
+        logger.info('Enter to date_filter method')
         if date and opdate and controldate:
             validator = self.valid_input.is_valid_date(date)
             if validator:
@@ -146,13 +146,13 @@ class MenuOperations(object):
                     validator = self.valid_input.is_valid_controldate(controldate)
                     if validator:
                         if controldate == 'c':
-                            logger.info ('Filter by date created completed')
+                            logger.info('Filter by date created completed')
                             return self.search.filter_by_date_created(results, date, opdate)
                         elif controldate == 'm':
-                            logger.info ('Filter by date modified completed')
+                            logger.info('Filter by date modified completed')
                             return self.search.filter_by_date_modified(results, date, opdate)
                         elif controldate == 'a':
-                            logger.info ('Filter by date created last access')
+                            logger.info('Filter by date created last access completed')
                             return self.search.filter_by_date_last_access(results, date, opdate)
                         else:
                             print("invalid control date entered")
@@ -176,11 +176,11 @@ class MenuOperations(object):
         :param results: This contains the previous result in order to filter by owner
         :return: This method return a list of objects filtered by owner
         """
-        logger.info ('Enter to owner_filter method')
+        logger.info('Enter to owner_filter method')
         validator = True
         if validator:
+            logger.info('Result filtered by owner')
             return self.search.filter_by_owner(results, owner)
-            logger.info ('Filter by owner completed')
         else:
             print("please enter a owner")
             exit()
@@ -192,11 +192,11 @@ class MenuOperations(object):
         :param results: This contains the previous result in order to filter string given as content. Work only for txt files
         :return: This method return a list of objects filtered by content
         """
-        logger.info ('Enter to content_filter method')
+        logger.info('Enter to content_filter method')
         validator = True
         if validator:
+            logger.info('Result filtered by content')
             return self.search.content_searcher(results, content)
-            logger.info ('Filter by content completed')
         else:
             print("Please enter the content you are looking for")
             exit()
@@ -213,11 +213,21 @@ class MenuOperations(object):
         validator = self.valid_input.is_valid_operator_to_exact_search(namefind)
         if validator:
             if namefind == 'e':
+                logger.info('Result filtered by exact name match')
                 return self.search.search_exactly_equal(results, name)
-                logger.info ('Filter by exact name match completed')
         else:
             print("please enter a valid value 'e' for the argument nf")
             exit()
+
+    def reset_operation(self):
+        """
+        This reset_operation method reset to default values in settings.ini
+        :return: It returns a boolean
+        """
+        self.menu.reset_settings()
+        print("Reset to default values")
+        logger.info('Reset to default value to settings.ini')
+        return True
 
     def print_results(self, results):
         """
@@ -250,4 +260,4 @@ class MenuOperations(object):
                                 item.get_date_last_access()])
 
         print(self.table)
-        logger.info ('Searched completed and printed results in table. Exiting from print_result method')
+        logger.info('Searched completed and printed results in table. Exiting from print_result method')

@@ -1,7 +1,9 @@
 import unittest
 from src.com.jalasoft.search_files.menu.input import *
 
-class Test_Input(unittest.TestCase):
+
+class TestInput(unittest.TestCase):
+
     def setUp(self):
         self.menu = Menu()
         self.name = "test1"

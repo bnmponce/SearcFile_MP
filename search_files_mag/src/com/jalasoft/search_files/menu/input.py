@@ -2,6 +2,7 @@ import configparser
 import definition
 from src.com.jalasoft.search_files.utils.logging import logger
 
+
 class Menu:
     """
     Menu class and methods
@@ -123,3 +124,18 @@ class Menu:
         with open(self.config_file, 'w') as configfile:
             config.write(configfile)
         logger.info('Overwritten case sensitive parameter in setting.ini file. Exiting from set_case_sensitive method')
+
+    def reset_settings(self):
+        """
+        This reset_settings method overwrite to default values in settings.ini
+        :param self:
+        """
+        logger.info('Enter to set_name method')
+        config = self.read_settings()
+        config['CONFIG']['name'] = ""
+        config['CONFIG']['path'] = "C:\\Users\\Public"
+        config['CONFIG']['type_search'] = "3"
+        config['CONFIG']['case_sensitive'] = "n"
+        with open(self.config_file, 'w') as configfile:
+            config.write(configfile)
+        logger.info('Set by Default the values in setting.ini file.')

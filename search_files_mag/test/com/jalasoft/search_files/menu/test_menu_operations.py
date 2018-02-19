@@ -2,7 +2,9 @@ import unittest
 from src.com.jalasoft.search_files.menu.menu_operations import *
 from src.com.jalasoft.search_files.search.file import *
 
-class Test_Menu_Operations(unittest.TestCase):
+
+class TestMenuOperations(unittest.TestCase):
+
     def setUp(self):
         self.menu_operations = MenuOperations()
         self.name = "test1234"

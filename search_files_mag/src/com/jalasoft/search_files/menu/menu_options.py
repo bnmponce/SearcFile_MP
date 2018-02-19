@@ -1,5 +1,7 @@
 import argparse
 from src.com.jalasoft.search_files.menu.input import *
+from src.com.jalasoft.search_files.utils.logging import logger
+
 
 class PrintMenu(object):
     """
@@ -120,6 +122,16 @@ class PrintMenu(object):
             help='Enter the argument find / -f to specify if you want to search by an specific name/text'
                  'By default the searches are finding all matches that contains the text introduced. Otherwise use:'
                  '  e: if you want to find an exact name/text'
+        )
+        parser.add_argument(
+            '-r',
+            dest='reset',
+            action='store_true',
+            help='perform a reset of default values of search all in the path C:.'
+                 'path: C:'
+                 'name: " "'
+                 'Type: 3 = both files and folder'
+                 'Case Sensitive: n=nonCase sensitive',
         )
 
         args = parser.parse_args()

@@ -1,5 +1,7 @@
 from src.com.jalasoft.search_files.menu.menu_operations import *
+from src.com.jalasoft.search_files.utils.logging import logger
 from prettytable import PrettyTable
+
 
 menu = Menu()
 valid_input = ValidateInput()
@@ -48,6 +50,9 @@ if args.search:
     menu_operations.print_results(results)
     logger.info('Search completed...')
 
+elif args.reset:
+    menu_operations.reset_operation()
 
 else:
     print("You need to introduce the -s argument to search your files/folders")
+
