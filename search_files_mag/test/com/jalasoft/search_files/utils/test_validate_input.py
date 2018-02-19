@@ -3,7 +3,7 @@ import unittest
 from src.com.jalasoft.search_files.utils.validate_input import *
 
 
-class Test_Validat_Input(unittest.TestCase):
+class TestValidatInput(unittest.TestCase):
 
     # Unittest for is_valid_name
     def test_name_validate_space_at_beging(self):
