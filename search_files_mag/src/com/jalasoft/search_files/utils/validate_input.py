@@ -2,6 +2,7 @@ import os
 import unicodedata
 from src.com.jalasoft.search_files.utils.logging import logger
 
+
 class ValidateInput(object):
     """
     ValidateInput class and methods
@@ -25,7 +26,6 @@ class ValidateInput(object):
                 if self._has_wilcards(name) == False and self._is_sent_name_only_with_spaces(name) == False and \
                         self._is_name_begins_with_space(name) == False and self._is_name_ends_with_space(name) == False:
                     result = True
-
         logger.info("Exiting from is_valid_name method")
         return result
 
@@ -105,7 +105,6 @@ class ValidateInput(object):
         logger.info("Exiting from is_valid_path method")
         return result
 
-
     def is_valid_type(self, value):
         """
         This method is to validate the type field
@@ -114,7 +113,6 @@ class ValidateInput(object):
         """
         logger.info("Enter to is_valid_type method")
         result = False
-
         if value in ('1', '2', '3'):
             result = True
         logger.info("Exiting from is_valid_type method")
@@ -130,10 +128,8 @@ class ValidateInput(object):
         result = False
         if value in ('c', 'n'):
             result = True
-
         logger.info("Exiting from is_valid_flag_of_sensitivecase method")
         return result
-
 
     def is_valid_operator_to_exact_search(self, value):
         """
@@ -141,7 +137,6 @@ class ValidateInput(object):
         :param value: string
         :return: This method returns True id the value is 'e' in otherwise ti returns false.
         """
-
         logger.info("Enter to is_valid_operator_to_exact_search method")
         result = False
         if value == 'e':
@@ -158,7 +153,6 @@ class ValidateInput(object):
         logger.info('Enter to is_valid_size method')
         result = False
         if value is not None:
-
             try:
                 size = float(value)
                 if size >= 0:
@@ -202,7 +196,6 @@ class ValidateInput(object):
         logger.info('Exiting from is_size_meets_condition method')
         return result
 
-
     def is_file_extension_same_extension_entered_by_user(self, path, extension):
         """
         This method is created to compare the extension of the file that was found
@@ -214,15 +207,12 @@ class ValidateInput(object):
         logger.info('Enter to is_file_extension_same_extension_entered_by_user method')
         result = False
         if path is not None and extension is not None:
-
             file = os.path.splitext(path)
             exten = file[1]
-
             if extension == exten:
                 result = True
         logger.info('Exiting from is_file_extension_same_extension_entered_by_user method')
         return result
-
 
     def is_valid_date(self, input_date):
         """
@@ -242,9 +232,7 @@ class ValidateInput(object):
                     year = int(date[2])
                     logger.info('Begins the date validation')
                     if year >= 0 and year <= 9999 and year_len == 4:
-
                         if month >= 1 and month <= 12:
-
                             if month == 2:
                                 if day >= 1 and day <= 28:
                                     result = True
@@ -256,7 +244,6 @@ class ValidateInput(object):
                     pass
         logger.info('Exiting from is_valid_date method')
         return result
-
 
     def is_date_meets_condition(self, result_date, input_date, operator):
         """
@@ -282,33 +269,25 @@ class ValidateInput(object):
                 date = date + '0' + input_date[1]
             else:
                 date = date + input_date[1]
-
             res_date = result_date[2]
             if len(result_date[0]) < 2:
                 res_date = res_date + '0' + result_date[0]
-
             else:
                 res_date = res_date + result_date[0]
-
             if len(result_date[1]) < 2:
                 res_date = res_date + '0' + result_date[1]
             else:
                 res_date = res_date + result_date[1]
-
             logger.info('date was convert to int' + date +'Date Insert by user' + res_date + 'date of the file')
-
             date = int(date)
             res_date = int(res_date)
-
             logger.info('Begins the date validation')
             if operator == str('l'):
                 if res_date <= date:
                     result = True
-
             if operator == str('g'):
                 if res_date > date:
                     result = True
-
             if operator == str('e'):
                 if res_date == date:
                     result = True
