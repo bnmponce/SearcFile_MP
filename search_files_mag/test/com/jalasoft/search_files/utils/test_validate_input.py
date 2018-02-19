@@ -5,7 +5,6 @@ from src.com.jalasoft.search_files.utils.validate_input import *
 
 class Test_Validat_Input(unittest.TestCase):
 
-
     # Unittest for is_valid_name
     def test_name_validate_space_at_beging(self):
         valid_input = ValidateInput()
@@ -226,12 +225,10 @@ class Test_Validat_Input(unittest.TestCase):
         valid = valid_input.is_valid_controldate('*')
         self.assertFalse(valid)
 
-
     def test_empty_is_validated_in_is_valid_controldate(self):
         valid_input = ValidateInput()
         valid = valid_input.is_valid_controldate('')
         self.assertFalse(valid)
-
 
     def test_space_is_validated_in_is_valid_controldate(self):
         valid_input = ValidateInput()
@@ -249,12 +246,10 @@ class Test_Validat_Input(unittest.TestCase):
         valid = valid_input.is_valid_operators('*')
         self.assertFalse(valid)
 
-
     def test_empty_is_validated_in_is_valid_opdate(self):
         valid_input = ValidateInput()
         valid = valid_input.is_valid_operators('')
         self.assertFalse(valid)
-
 
     def test_space_is_validated_in_is_valid_opdate(self):
         valid_input = ValidateInput()
@@ -265,8 +260,6 @@ class Test_Validat_Input(unittest.TestCase):
         valid_input = ValidateInput()
         valid = valid_input.is_valid_operators(None)
         self.assertFalse(valid)
-
-
 
 if __name__ == '__main__':
     unittest.main()
