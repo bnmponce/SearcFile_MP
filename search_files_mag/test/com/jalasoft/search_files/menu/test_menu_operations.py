@@ -127,5 +127,6 @@ class TestMenuOperations(unittest.TestCase):
         self.assertEqual(len(result), 1)
         self.assertEqual(result[0].get_date_last_access(), "01012018")
 
+
 if __name__ == '__main__':
     unittest.main()
