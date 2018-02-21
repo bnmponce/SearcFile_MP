@@ -31,5 +31,6 @@ class TestInput(unittest.TestCase):
         test_case_sensitive = self.menu.get_case_sensitive()
         self.assertEqual(self.case_sensitive, test_case_sensitive)
 
+
 if __name__ == '__main__':
     unittest.main()
