@@ -2,10 +2,10 @@
 
 This tool allows to search files and folders by command line. It has been implemented in Python using the ArgParse library which is useful to handle arguments.
 This tool uses a configuration file .INI which store by default the following criteria:
-'path: C:/Users/Public'
-'name: " "'
-'Type: 3 = both files and folder'
-'Case Sensitive: n=nonCase sensitive',
+* *path:* C:/Users/Public
+* *name:* " "
+* *Type:* 3 = both files and folder
+* *Case Sensitive:* n=nonCase sensitive
 
 ### Prerequisites
 
@@ -112,7 +112,7 @@ python __main__.py -s --name test --namefind e --path C:\Users\Administrator\Doc
 
 This is a Beta version.
 
-For the Beta version available, see the [tags on this repository] (https://github.com/bnmponce/SearcFile_MP/tree/develop)
+For the Beta version available, see the [Beta Version] (https://github.com/bnmponce/SearcFile_MP/tree/develop)
 
 ## Authors
 * **Ariel Zurita** - *Search* - [Search](https://github.com/bnmponce/SearcFile_MP/tree/develop/search_files_mag/src/com/jalasoft/search_files/search)
